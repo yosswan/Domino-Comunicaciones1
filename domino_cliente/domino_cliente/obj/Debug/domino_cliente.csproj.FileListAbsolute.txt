@@ -1,0 +1,56 @@
+C:\Users\leila\Desktop\domino comunicaciones\domino_cliente\domino_cliente\bin\Debug\domino_cliente.exe.config
+C:\Users\leila\Desktop\domino comunicaciones\domino_cliente\domino_cliente\bin\Debug\domino_cliente.exe
+C:\Users\leila\Desktop\domino comunicaciones\domino_cliente\domino_cliente\bin\Debug\domino_cliente.pdb
+C:\Users\leila\Desktop\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.Form1.resources
+C:\Users\leila\Desktop\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.Properties.Resources.resources
+C:\Users\leila\Desktop\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.csproj.GenerateResource.Cache
+C:\Users\leila\Desktop\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.exe
+C:\Users\leila\Desktop\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.pdb
+C:\Users\yohana.contreras\Desktop\domino comunicaciones\domino_cliente\domino_cliente\bin\Debug\domino_cliente.exe.config
+C:\Users\yohana.contreras\Desktop\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.exe
+C:\Users\yohana.contreras\Desktop\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.pdb
+C:\Users\yohana.contreras\Desktop\domino comunicaciones\domino_cliente\domino_cliente\bin\Debug\domino_cliente.exe
+C:\Users\yohana.contreras\Desktop\domino comunicaciones\domino_cliente\domino_cliente\bin\Debug\domino_cliente.pdb
+C:\Users\yohana.contreras\Desktop\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.csprojResolveAssemblyReference.cache
+C:\Users\yohana.contreras\Desktop\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.Form1.resources
+C:\Users\yohana.contreras\Desktop\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.Properties.Resources.resources
+C:\Users\yohana.contreras\Desktop\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.csproj.GenerateResource.Cache
+C:\Users\yosswan.vecino\Documents\domino_cliente\domino_cliente\bin\Debug\domino_cliente.exe.config
+C:\Users\yosswan.vecino\Documents\domino_cliente\domino_cliente\obj\Debug\domino_cliente.exe
+C:\Users\yosswan.vecino\Documents\domino_cliente\domino_cliente\obj\Debug\domino_cliente.pdb
+C:\Users\yosswan.vecino\Documents\domino_cliente\domino_cliente\bin\Debug\domino_cliente.exe
+C:\Users\yosswan.vecino\Documents\domino_cliente\domino_cliente\bin\Debug\domino_cliente.pdb
+C:\Users\yosswan.vecino\Documents\domino_cliente\domino_cliente\obj\Debug\domino_cliente.csprojResolveAssemblyReference.cache
+C:\Users\yosswan.vecino\Documents\domino_cliente\domino_cliente\obj\Debug\domino_cliente.Form1.resources
+C:\Users\yosswan.vecino\Documents\domino_cliente\domino_cliente\obj\Debug\domino_cliente.Properties.Resources.resources
+C:\Users\yosswan.vecino\Documents\domino_cliente\domino_cliente\obj\Debug\domino_cliente.csproj.GenerateResource.Cache
+C:\Users\yosswan.vecino\Documents\domino comunicaciones\domino_cliente\domino_cliente\bin\Debug\domino_cliente.exe.config
+C:\Users\yosswan.vecino\Documents\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.exe
+C:\Users\yosswan.vecino\Documents\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.pdb
+C:\Users\yosswan.vecino\Documents\domino comunicaciones\domino_cliente\domino_cliente\bin\Debug\domino_cliente.exe
+C:\Users\yosswan.vecino\Documents\domino comunicaciones\domino_cliente\domino_cliente\bin\Debug\domino_cliente.pdb
+C:\Users\yosswan.vecino\Documents\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.csprojResolveAssemblyReference.cache
+C:\Users\yosswan.vecino\Documents\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.Form1.resources
+C:\Users\yosswan.vecino\Documents\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.Properties.Resources.resources
+C:\Users\yosswan.vecino\Documents\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.csproj.GenerateResource.Cache
+C:\Users\Yonny\Documents\domino comunicaciones\domino_cliente\domino_cliente\bin\Debug\domino_cliente.exe.config
+C:\Users\Yonny\Documents\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.exe
+C:\Users\Yonny\Documents\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.pdb
+C:\Users\Yonny\Documents\domino comunicaciones\domino_cliente\domino_cliente\bin\Debug\domino_cliente.exe
+C:\Users\Yonny\Documents\domino comunicaciones\domino_cliente\domino_cliente\bin\Debug\domino_cliente.pdb
+C:\Users\Yonny\Documents\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.csprojResolveAssemblyReference.cache
+C:\Users\Yonny\Documents\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.Form1.resources
+C:\Users\Yonny\Documents\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.Properties.Resources.resources
+C:\Users\Yonny\Documents\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.csproj.GenerateResource.Cache
+D:\domino comunicaciones\domino_cliente\domino_cliente\bin\Debug\domino_cliente.exe.config
+D:\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.exe
+D:\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.pdb
+C:\Users\Vivas\Documents\yosswan\domino comunicaciones\domino_cliente\domino_cliente\bin\Debug\domino_cliente.exe.config
+C:\Users\Vivas\Documents\yosswan\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.exe
+C:\Users\Vivas\Documents\yosswan\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.pdb
+C:\Users\Vivas\Documents\yosswan\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.csprojResolveAssemblyReference.cache
+C:\Users\Vivas\Documents\yosswan\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.Form1.resources
+C:\Users\Vivas\Documents\yosswan\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.Properties.Resources.resources
+C:\Users\Vivas\Documents\yosswan\domino comunicaciones\domino_cliente\domino_cliente\obj\Debug\domino_cliente.csproj.GenerateResource.Cache
+C:\Users\Vivas\Documents\yosswan\domino comunicaciones\domino_cliente\domino_cliente\bin\Debug\domino_cliente.exe
+C:\Users\Vivas\Documents\yosswan\domino comunicaciones\domino_cliente\domino_cliente\bin\Debug\domino_cliente.pdb
