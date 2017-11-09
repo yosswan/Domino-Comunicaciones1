@@ -110,7 +110,7 @@ namespace domino_cliente
             return deserializedUser;
         }
 
-        public static InicioDeJuego ReadToFichas(byte[] json)
+        public static InicioDeJuego ReadToInicioDeJuego(byte[] json)
         {
 
             InicioDeJuego deserializedUser = new InicioDeJuego();
@@ -121,7 +121,7 @@ namespace domino_cliente
             return deserializedUser;
         }
 
-        public static InicioRonda ReadToFichas(byte[] json)
+        public static InicioRonda ReadToInicioRonda(byte[] json)
         {
 
             InicioRonda deserializedUser = new InicioRonda();
