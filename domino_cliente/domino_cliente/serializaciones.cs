@@ -109,5 +109,27 @@ namespace domino_cliente
             ms.Close();
             return deserializedUser;
         }
+
+        public static InicioDeJuego ReadToFichas(byte[] json)
+        {
+
+            InicioDeJuego deserializedUser = new InicioDeJuego();
+            MemoryStream ms = new MemoryStream(json);
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(deserializedUser.GetType());
+            deserializedUser = ser.ReadObject(ms) as InicioDeJuego;
+            ms.Close();
+            return deserializedUser;
+        }
+
+        public static InicioRonda ReadToFichas(byte[] json)
+        {
+
+            InicioRonda deserializedUser = new InicioRonda();
+            MemoryStream ms = new MemoryStream(json);
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(deserializedUser.GetType());
+            deserializedUser = ser.ReadObject(ms) as InicioRonda;
+            ms.Close();
+            return deserializedUser;
+        }
     }
 }

@@ -13,6 +13,8 @@ namespace domino_cliente
         public int cantidadJugadores;
         public int punta2, punta1, pos2, pos1;
         parametro_string_entero actualizarJugadores;
+        public string nombre = "jugador007";
+        public string identificador;
 
         public Juego(parametro_string_entero delegado)
         {
@@ -37,11 +39,30 @@ namespace domino_cliente
         {
             foreach (Jugador j in jugadores)
             {
-                if (j.getNombre() == nombre)
+                if (j.identificador == nombre)
                 {
                     j.setPuntuacion(puntos);
                     break;
                 }
+            }
+        }
+
+        public void agregarJugadores(DatosJugador[] datos)
+        {
+            foreach (var item in datos)
+            {
+                agregarJugador(item);
+            }
+        }
+
+        void agregarJugador(DatosJugador d)
+        {
+            if (d.nombre == nombre)
+                identificador = d.identificador;
+            else
+            {
+                jugadores.Add(new Jugador(d.nombre, d.identificador, cantidadJugadores, actualizarJugadores));
+                cantidadJugadores++;
             }
         }
 
@@ -50,17 +71,11 @@ namespace domino_cliente
             bool ban = false;
             foreach (Jugador j in jugadores)
             {
-                if (j.getNombre() == jugador)
+                if (j.identificador == jugador)
                 {
                     j.agregarFicha(f);
                     ban = true;
                 }
-            }
-            if (!ban)
-            {
-                jugadores.Add(new Jugador(jugador, cantidadJugadores, actualizarJugadores));
-                jugadores.ElementAt(cantidadJugadores).agregarFicha(f);
-                cantidadJugadores++;
             }
 
             if (punta)

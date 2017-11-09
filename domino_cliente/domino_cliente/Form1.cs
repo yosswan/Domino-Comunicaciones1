@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,7 +30,7 @@ namespace domino_cliente
             cliente_udp.obtenerMAC();
             cliente_udp.forma = this;
             cliente_udp.hilo_escucha.Start();
-            mesas = new List<string>();
+            mesas = new List<IPEndPoint>();
             fichas = new List<Ficha>();
             listView1.MultiSelect = false;
             juego = new Juego(this.ModificarJugador);
@@ -46,6 +47,20 @@ namespace domino_cliente
             else
             {
                 listView1.Items.Add(linea);
+            }
+        }
+
+        public void cambiarRonda(string linea)
+        {
+            if (this.InvokeRequired)
+            {
+                parametro_string delegado = new parametro_string(cambiarRonda);
+                object[] parametros = new object[] { linea };
+                this.Invoke(delegado, parametros);
+            }
+            else
+            {
+                label13.Text = linea;
             }
         }
 
@@ -183,8 +198,11 @@ namespace domino_cliente
 
         private void button2_Click(object sender, EventArgs e)
         {
-            cliente_udp.enviar_jugador(nombre, mesas.ElementAt(listView1.SelectedIndices[0]));
-            cliente_udp.solicitud = true;
+            if (listView1.SelectedIndices.Count != 0)
+            {
+                cliente_udp.enviar_jugador(juego.nombre, mesas.ElementAt(listView1.SelectedIndices[0]));
+                cliente_udp.solicitud = true;
+            }
         }
 
         public void visibilidadBoton3(bool v)
@@ -193,7 +211,7 @@ namespace domino_cliente
             {
                 parametro_bool delegado = new parametro_bool(visibilidadBoton3);
                 object[] parametros = new object[] { v };
-                this.Invoke(delegado);
+                this.Invoke(delegado, parametros);
             }
             else
             {
@@ -201,8 +219,22 @@ namespace domino_cliente
             }
         }
 
-        string nombre = "jugador";
-        public List<string> mesas;
+        public void visibilidadBoton2(bool v)
+        {
+            if (this.InvokeRequired)
+            {
+                parametro_bool delegado = new parametro_bool(visibilidadBoton2);
+                object[] parametros = new object[] { v };
+                this.Invoke(delegado, parametros);
+            }
+            else
+            {
+                button2.Visible = v;
+            }
+        }
+
+        
+        public List<IPEndPoint> mesas;
         public List<Ficha> fichas;
         public Juego juego;
 

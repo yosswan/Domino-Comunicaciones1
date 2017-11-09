@@ -11,13 +11,15 @@ namespace domino_server
     {
         public List<Ficha> fichas = new List<Ficha>();
         string nombre;
+        public string identificador;
         public IPEndPoint ip;
         int puntuacion;
         public parametro_string agregarLinea;
 
-        public Jugador(string nombre, IPEndPoint ip, int pos, parametro_string delegado)
+        public Jugador(string nombre, string identificador, IPEndPoint ip, int pos, parametro_string delegado)
         {
             this.nombre = nombre;
+            this.identificador = identificador;
             this.ip = ip;
             agregarLinea = delegado;
             agregarLinea(label());

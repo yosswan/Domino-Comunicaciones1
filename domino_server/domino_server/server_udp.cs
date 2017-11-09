@@ -79,7 +79,7 @@ namespace domino_server
                 {
                     tiempo = 0;
                     ip_clientes[clientes] = ipRemota;
-                    //enviar_data(new IPEndPoint(IPAddress.Parse(multicastIP), ipRemota.Port), "Jugador " + (clientes + 1));
+                    enviar_Mesa(ipRemota);
                     forma.agregar_linea(clientes + " " + ipRemota.ToString());
                     clientes++;
 
@@ -107,9 +107,9 @@ namespace domino_server
             enviar_data(ObjectToByte(new Mesa(forma.nombre_mesa)), ip);
         }
 
-        public static void enviar_Disponibilidad(IPEndPoint ip, string multicastIP, bool disponible)
+        public static void enviar_Disponibilidad(IPEndPoint ip, string multicastIP, string identificador)
         {
-            enviar_data(ObjectToByte(new Disponibilidad(multicastIP, disponible)), ip);
+            enviar_data(ObjectToByte(new Disponibilidad(multicastIP, identificador)), ip);
         }
 
         public static void enviar_Fichas(Ficha[] fichas, IPEndPoint ip)
@@ -130,6 +130,16 @@ namespace domino_server
         public static void enviar_FinDeRonda(string jugador, string motivo, int puntuacion)
         {
             enviar_data(ObjectToByte(new FinDeRonda(jugador, motivo, puntuacion)), multicastEndPoint);
+        }
+
+        public static void enviar_InicioRonda()
+        {
+            enviar_data(ObjectToByte(new InicioRonda(forma.juego.ronda)), multicastEndPoint);
+        }
+
+        public static void enviar_InicioDeJuego(DatosJugador[] jugadores)
+        {
+            enviar_data(ObjectToByte(new InicioDeJuego(jugadores)), multicastEndPoint);
         }
 
     }

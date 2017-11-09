@@ -20,8 +20,7 @@ namespace domino_cliente
 
 
         public static string IP_Broadcast = "255.255.255.255";
-        public static string IP_servidor;
-        public static string multicastIP = "224.1.0.24";
+        public static IPEndPoint IP_servidor;
         public static string direccionMAC;
         public static int PUERTO_SERVIDOR = 3001;
         public static NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
@@ -59,8 +58,7 @@ namespace domino_cliente
                 }
 
                 byte[] buffer = socket.Receive(ref ipRemota);
-                string datos = Encoding.Default.GetString(buffer, 0, buffer.Length);
-                forma.agregar_item(datos);
+                AtenderMesa(ReadToMesa(buffer), ipRemota);
             }
         }
 
@@ -81,20 +79,20 @@ namespace domino_cliente
             enviar_data(ObjectToByte(new Paquete()), new IPEndPoint(IPAddress.Parse(IP_Broadcast), PUERTO_SERVIDOR));
         }
 
-        public static void enviar_jugador(string nombre, string ip)
+        public static void enviar_jugador(string nombre, IPEndPoint ip)
         {
             IP_servidor = ip;
-            enviar_data(ObjectToByte(new NombreJugador(nombre)), new IPEndPoint(IPAddress.Parse(ip), PUERTO_SERVIDOR));
+            enviar_data(ObjectToByte(new NombreJugador(nombre)), ip);
         }
 
         public static void enviar_verificacion()
         {
-            enviar_data(ObjectToByte(new Verificacion(direccionMAC)), new IPEndPoint(IPAddress.Parse(IP_servidor), PUERTO_SERVIDOR));
+            enviar_data(ObjectToByte(new Verificacion(forma.juego.identificador)), IP_servidor);
         }
 
-        public static void enviar_Jugada(Ficha f, bool punta)
+        public static void enviar_Jugada(Token f, bool punta)
         {
-            enviar_data(ObjectToByte(new Jugada(f, punta)), new IPEndPoint(IPAddress.Parse(IP_servidor), PUERTO_SERVIDOR));
+            enviar_data(ObjectToByte(new Jugada(f, punta)), IP_servidor);
         }
 
     }

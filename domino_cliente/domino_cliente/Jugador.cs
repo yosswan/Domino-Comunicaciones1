@@ -10,13 +10,16 @@ namespace domino_cliente
     {
         List<ValorFicha> fichas = new List<ValorFicha>();
         string nombre;
+        public string identificador;
         int puntuacion;
         int pos;
         public parametro_string_entero modificarLabel;
 
-        public Jugador(string nombre, int pos, parametro_string_entero delegado)
+        public Jugador(string nombre, string identificador, int pos, parametro_string_entero delegado)
         {
             this.nombre = nombre;
+            this.identificador =
+            this.identificador = identificador;
             this.pos = pos;
             modificarLabel = delegado;
             modificarLabel(label(), pos);

@@ -29,12 +29,9 @@ namespace domino_server
                 if (!forma.juego.jugando && forma.juego.jugadores.Count < 4)
                 {
                     tiempo = 0;
-                    forma.juego.agregarJugador(nombre, ip);
-                    enviar_Disponibilidad(ip, multicastIP, true);
-                }
-                else
-                {
-                    enviar_Disponibilidad(ip, "", false);
+                    string identificador = "jugador " + forma.juego.jugadores.Count;
+                    forma.juego.agregarJugador(nombre, identificador, ip);
+                    enviar_Disponibilidad(ip, multicastIP, identificador);
                 }
             }
         }

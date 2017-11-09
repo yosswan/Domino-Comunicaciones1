@@ -50,16 +50,65 @@ namespace domino_server
     class Disponibilidad : Paquete
     {
         [DataMember]
-        public bool disponible;
-        [DataMember]
         public string multicast_ip;
+        [DataMember]
+        public string jugador;
 
         public Disponibilidad() { }
 
-        public Disponibilidad(string multicastIP, bool disponibilidad)
+        public Disponibilidad(string multicastIP, string jugador)
         {
-            disponible = disponibilidad;
+            this.jugador = jugador;
             multicast_ip = multicastIP;
+        }
+    }
+
+    [DataContract]
+    class InicioDeJuego : Paquete
+    {
+        [DataMember]
+        public int tipo = 0;
+        [DataMember]
+        DatosJugador[] jugadores;
+
+        public InicioDeJuego() { }
+
+        public InicioDeJuego(DatosJugador[] jugadores)
+        {
+            this.jugadores = jugadores;
+        }
+    }
+
+    [DataContract]
+    class DatosJugador : Paquete
+    {
+        [DataMember]
+        public string identificador;
+        [DataMember]
+        public string nombre;
+
+        public DatosJugador() { }
+
+        public DatosJugador(string identificador, string nombre)
+        {
+            this.identificador = identificador;
+            this.nombre = nombre;
+        }
+    }
+
+    [DataContract]
+    class InicioRonda : Paquete
+    {
+        [DataMember]
+        public int tipo = 1;
+        [DataMember]
+        public int ronda;
+
+        public InicioRonda() { }
+
+        public InicioRonda(int ronda)
+        {
+            this.ronda = ronda;
         }
     }
 
@@ -132,6 +181,8 @@ namespace domino_server
     class Fichas : Paquete
     {
         [DataMember]
+        public int tipo = 2;
+        [DataMember]
         public Ficha[] fichas = new Ficha[7];
 
         public Fichas() { }
@@ -151,7 +202,7 @@ namespace domino_server
         [DataMember]
         public string jugador;
         [DataMember]
-        public int tipo = 0;
+        public int tipo = 3;
         [DataMember]
         public int punta_uno;
         [DataMember]
@@ -195,9 +246,9 @@ namespace domino_server
     public class Evento
     {
         [DataMember]
-        public string jugador;
+        public int tipo;
         [DataMember]
-        public int tipo = 0;
+        public string jugador;
         [DataMember]
         public ValorFicha ficha;
         [DataMember]
@@ -208,9 +259,10 @@ namespace domino_server
             
         }
 
-        public Evento(string mac, ValorFicha ficha, bool punta)
+        public Evento(int tipo, string mac, ValorFicha ficha, bool punta)
         {
             jugador = mac;
+            this.tipo = tipo;
             this.ficha = ficha;
             this.punta = punta;
         }
@@ -222,11 +274,11 @@ namespace domino_server
         [DataMember]
         public string jugador;
         [DataMember]
-        public int tipo = 2;
-        [DataMember]
-        public string razon;
+        public int tipo = 5;
         [DataMember]
         public Puntaje[] puntuacion_general;
+        [DataMember]
+        public string razon;
 
         public FinDePartida(string mac, string motivo, Puntaje[] puntuacion)
         {
@@ -257,11 +309,11 @@ namespace domino_server
         [DataMember]
         public string jugador;
         [DataMember]
-        public int tipo = 1;
-        [DataMember]
-        public string razon;
+        public int tipo = 4;
         [DataMember]
         public int puntuacion;
+        [DataMember]
+        public string razon;
 
         public FinDeRonda(string mac, string motivo, int puntuacion)
         {
@@ -277,7 +329,7 @@ namespace domino_server
         [DataMember]
         public string jugador;
         [DataMember]
-        public int tipo = 3;
+        public int tipo = 6;
 
         public Desconexion(string mac, string motivo, int puntuacion)
         {

@@ -17,6 +17,7 @@ namespace domino_server
         public bool jugando = false;
         Evento evento_pasado;
         Form1 forma;
+        public int ronda = 0;
 
         public Juego(Form1 form)
         {
@@ -113,9 +114,9 @@ namespace domino_server
             }
         }
 
-        public void agregarJugador(string nombre, IPEndPoint ip)
+        public void agregarJugador(string nombre, string identificador, IPEndPoint ip)
         {
-            jugadores.Add(new Jugador(nombre, ip, jugadores.Count, forma.agregar_linea));
+            jugadores.Add(new Jugador(nombre, identificador, ip, jugadores.Count, forma.agregar_linea));
         }
 
         public bool agregarFicha(Token t, bool punta, IPEndPoint ip)
@@ -187,7 +188,7 @@ namespace domino_server
                 bool trancado = comprobarTranca();
                 if (jugadores[turno].fichas.Count != 0 && !trancado)
                 {
-                    Evento aux = new Evento(jugadores[0].getNombre(), f.getValorFicha(), punta);
+                    Evento aux = new Evento(0, jugadores[0].getNombre(), f.getValorFicha(), punta);
                     if (turno < jugadores.Count - 1)
                         turno++;
                     else
@@ -256,7 +257,9 @@ namespace domino_server
 
         void EliminarJugador(int i)
         {
+            Evento aux = new Evento(1, jugadores[turno].getNombre(), null, false);
             jugadores.RemoveAt(i);
+            server_udp.enviar_MensajeDeJuego(jugadores[turno].getNombre(), punta1, punta2, evento_pasado);
         }
 
         void Reiniciar()

@@ -104,6 +104,32 @@ namespace domino_server
             return json;
         }
 
+        public static byte[] ObjectToByte(InicioDeJuego paquete)
+        {
+            //Create a stream to serialize the object to.  
+            MemoryStream ms = new MemoryStream();
+
+            // Serializer the User object to the stream.  
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(InicioDeJuego));
+            ser.WriteObject(ms, paquete);
+            byte[] json = ms.ToArray();
+            ms.Close();
+            return json;
+        }
+
+        public static byte[] ObjectToByte(InicioRonda paquete)
+        {
+            //Create a stream to serialize the object to.  
+            MemoryStream ms = new MemoryStream();
+
+            // Serializer the User object to the stream.  
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(InicioRonda));
+            ser.WriteObject(ms, paquete);
+            byte[] json = ms.ToArray();
+            ms.Close();
+            return json;
+        }
+
         public static MensajeJugador ReadToJugador(byte[] json)
         {
 

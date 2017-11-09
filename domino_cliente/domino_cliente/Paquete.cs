@@ -50,16 +50,65 @@ namespace domino_cliente
     class Disponibilidad : Paquete
     {
         [DataMember]
-        public bool disponible;
-        [DataMember]
         public string multicast_ip;
+        [DataMember]
+        public string jugador;
 
         public Disponibilidad() { }
 
-        public Disponibilidad(string multicastIP, bool disponibilidad)
+        public Disponibilidad(string multicastIP, string jugador)
         {
-            disponible = disponibilidad;
+            this.jugador = jugador;
             multicast_ip = multicastIP;
+        }
+    }
+
+    [DataContract]
+    class InicioDeJuego : Paquete
+    {
+        [DataMember]
+        public int tipo = 0;
+        [DataMember]
+        public DatosJugador[] jugadores;
+
+        public InicioDeJuego() { }
+
+        public InicioDeJuego(DatosJugador[] jugadores)
+        {
+            this.jugadores = jugadores;
+        }
+    }
+
+    [DataContract]
+    class DatosJugador : Paquete
+    {
+        [DataMember]
+        public string identificador;
+        [DataMember]
+        public string nombre;
+
+        public DatosJugador() { }
+
+        public DatosJugador(string identificador, string nombre)
+        {
+            this.identificador = identificador;
+            this.nombre = nombre;
+        }
+    }
+
+    [DataContract]
+    class InicioRonda : Paquete
+    {
+        [DataMember]
+        public int tipo = 1;
+        [DataMember]
+        public int ronda;
+
+        public InicioRonda() { }
+
+        public InicioRonda(int ronda)
+        {
+            this.ronda = ronda;
         }
     }
 
@@ -71,10 +120,9 @@ namespace domino_cliente
         [DataMember]
         public int entero_dos;
 
-        public void limpiar()
+        public ValorFicha getValorFicha()
         {
-            token = "-1";
-            entero_uno = entero_dos = -1;
+            return new ValorFicha(entero_uno, entero_dos);
         }
 
         public Ficha()
@@ -121,6 +169,11 @@ namespace domino_cliente
             entero_uno = entero_dos = -1;
         }
 
+        public string ToString()
+        {
+            return entero_uno + " | " + entero_dos;
+        }
+
         public ValorFicha(int uno, int dos)
         {
             entero_uno = uno;
@@ -131,6 +184,8 @@ namespace domino_cliente
     [DataContract]
     class Fichas : Paquete
     {
+        [DataMember]
+        public int tipo = 2;
         [DataMember]
         public Ficha[] fichas = new Ficha[7];
 
@@ -151,7 +206,7 @@ namespace domino_cliente
         [DataMember]
         public string jugador;
         [DataMember]
-        public int tipo = 0;
+        public int tipo = 3;
         [DataMember]
         public int punta_uno;
         [DataMember]
@@ -192,20 +247,26 @@ namespace domino_cliente
     }
 
     [DataContract]
-    class Evento
+    public class Evento
     {
         [DataMember]
-        public string jugador;
+        public int tipo;
         [DataMember]
-        public int tipo = 0;
+        public string jugador;
         [DataMember]
         public ValorFicha ficha;
         [DataMember]
         public bool punta;
 
-        public Evento(string mac, ValorFicha ficha, bool punta)
+        public Evento()
+        {
+
+        }
+
+        public Evento(int tipo, string mac, ValorFicha ficha, bool punta)
         {
             jugador = mac;
+            this.tipo = tipo;
             this.ficha = ficha;
             this.punta = punta;
         }
@@ -217,11 +278,11 @@ namespace domino_cliente
         [DataMember]
         public string jugador;
         [DataMember]
-        public int tipo = 2;
-        [DataMember]
-        public string razon;
+        public int tipo = 5;
         [DataMember]
         public Puntaje[] puntuacion_general;
+        [DataMember]
+        public string razon;
 
         public FinDePartida(string mac, string motivo, Puntaje[] puntuacion)
         {
@@ -252,11 +313,11 @@ namespace domino_cliente
         [DataMember]
         public string jugador;
         [DataMember]
-        public int tipo = 1;
-        [DataMember]
-        public string razon;
+        public int tipo = 4;
         [DataMember]
         public int puntuacion;
+        [DataMember]
+        public string razon;
 
         public FinDeRonda(string mac, string motivo, int puntuacion)
         {
@@ -272,7 +333,7 @@ namespace domino_cliente
         [DataMember]
         public string jugador;
         [DataMember]
-        public int tipo = 3;
+        public int tipo = 6;
 
         public Desconexion(string mac, string motivo, int puntuacion)
         {

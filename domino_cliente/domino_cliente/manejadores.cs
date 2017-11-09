@@ -16,6 +16,8 @@ namespace domino_cliente
         public static bool primeraJugada = true;
         public static bool solicitud = false;
         public static bool conectado = false;
+        public static bool mensajeInicio = false;
+        public static bool mensajeRonda = false;
         public static Thread hiloVerificacion;
 
         private static void tareaHiloVerificacion()
@@ -27,25 +29,37 @@ namespace domino_cliente
             }
         }
 
-        public static void AtenderMesa(Mesa mesa, string ip)
+        public static void AtenderMesa(Mesa mesa, IPEndPoint ip)
         {
             forma.agregar_item(mesa.nombre_mesa);
             forma.mesas.Add(ip);
+            forma.visibilidadBoton2(true);
+        }
+
+        public static void AtenderInicioRonda(InicioRonda i)
+        {
+            forma.cambiarRonda("Ronda: " + i.ronda);
+            mensajeRonda = true;
+        }
+
+        public static void AtenderInicioDeJuego(InicioDeJuego i)
+        {
+            forma.juego.agregarJugadores(i.jugadores);
+            mensajeInicio = true;
         }
 
         public static void AtenderDisponibilidad(Disponibilidad disponibilidad)
         {
-            if (disponibilidad.disponible)
-            {
                 socket.JoinMulticastGroup(IPAddress.Parse(disponibilidad.multicast_ip));
                 conectado = true;
+                forma.juego.identificador = disponibilidad.jugador;
                 forma.ModificarInterfaz(2);
-            }
-            else
-            {
-                forma.actualizar();
-                solicitud = false;
-            }
+        }
+
+        public void FallaConexion()
+        {
+            forma.actualizar();
+            solicitud = false;
         }
 
         public static void AtenderFichas(Fichas fichas)
@@ -59,12 +73,12 @@ namespace domino_cliente
 
         public static void AtenderMensajeGeneral(MensajeGeneral mensaje)
         {
-            if (mensaje.tipo == 0)
+            if (mensaje.tipo == 3)
                 if (primeraJugada)
                 {
                     jugando = true;
                     hiloVerificacion = new Thread(new ThreadStart(tareaHiloVerificacion));
-                    if (mensaje.jugador == direccionMAC)
+                    if (mensaje.jugador == forma.juego.identificador)
                     {
                         GenerarJugada(mensaje, true);
                     }
@@ -72,23 +86,27 @@ namespace domino_cliente
                 else
                 {
                     forma.juego.agregarFicha(mensaje.evento_pasado.ficha, mensaje.evento_pasado.punta, mensaje.evento_pasado.jugador);
-                    if (mensaje.jugador == direccionMAC)
+                    if (mensaje.jugador == forma.juego.identificador)
                     {
                         GenerarJugada(mensaje, false);
                     }
                 }
-            else if (mensaje.tipo == 1)
+            else if (mensaje.tipo == 4)
             {
                 forma.fichas.Clear();
                 forma.juego.actualizarPuntuacion(mensaje.jugador, mensaje.puntuacion);
             }
-            else if (mensaje.tipo == 2)
+            else if (mensaje.tipo == 5)
             {
                 foreach (Puntaje p in mensaje.puntuacion_general)
                 {
                     forma.juego.actualizarPuntuacion(p.jugador, p.puntuacion);
                     forma.visibilidadBoton3(true);
                 }
+            }
+            else if (mensaje.tipo == 6)
+            {
+                //mensaje de desconexion
             }
         }
     }
