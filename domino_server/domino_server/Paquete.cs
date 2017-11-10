@@ -94,6 +94,11 @@ namespace domino_server
             this.identificador = identificador;
             this.nombre = nombre;
         }
+
+        public string ToString()
+        {
+            return "nombre: " + nombre + " identificador: " + identificador;
+        }
     }
 
     [DataContract]
@@ -132,6 +137,11 @@ namespace domino_server
             this.token = token;
             entero_uno = uno;
             entero_dos = dos;
+        }
+
+        public string ToString()
+        {
+            return "| " + entero_uno + " | " + entero_dos + " |";
         }
     }
 

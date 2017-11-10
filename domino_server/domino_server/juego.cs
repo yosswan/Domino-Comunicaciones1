@@ -58,15 +58,19 @@ namespace domino_server
             forma.cambiar_label("Eventos:");
             jugando = true;
             DatosJugador[] datos = new DatosJugador[jugadores.Count];
+            forma.agregar_linea("Jugadores:");
             for (int i = 0; i < jugadores.Count; i++)
             {
                 datos[i] = jugadores[i].getDatos();
+                forma.agregar_linea(datos[i].ToString());
             }
             server_udp.enviar_InicioDeJuego(datos);
+            forma.agregar_linea("Mensaje de inicio de juego enviado a " + server_udp.multicastIP);
             server_udp.enviar_InicioRonda();
+            forma.agregar_linea("Mensaje de inicio de ronda enviado a " + server_udp.multicastIP);
             repartirFichas();
             server_udp.enviar_MensajeDeJuego(jugadores[saque].getNombre(), punta1, punta2, evento_pasado);
-            
+            forma.agregar_linea("El juego inicia con: " + jugadores[saque].getNombre());
         }
 
         public void repartirFichas()
@@ -81,15 +85,19 @@ namespace domino_server
             int r;
             for (int i = 0; i < jugadores.Count; i++)
             {
+                string mensaje = "";
+                forma.agregar_linea("fichas enviadas a " + jugadores[i].getNombre() + ":");
                 for (int j = 0; j < 7; j++)
                 {
                     r = random.Next(fichas.Count);
                     if (ronda == 0 && fichas[r].entero_dos == fichas[r].entero_uno && fichas[r].entero_uno == 6)
                         saque = i;
                     jugadores[i].agregarFicha(fichas[r]);
+                    mensaje += fichas[r].ToString();
                     fichas.RemoveAt(r);
                 }
                 server_udp.enviar_Fichas(jugadores[i].fichas.ToArray(), jugadores[i].ip);
+                forma.agregar_linea(mensaje);
             }
             
         }
@@ -135,6 +143,7 @@ namespace domino_server
 
             if (t.token == "-1")
             {
+                string mensaje = jugadores[turno].getNombre() + " pasó, el turno es de ";
                 if(turno == mano)
                     if (mano < jugadores.Count - 1)
                         mano++;
@@ -147,6 +156,8 @@ namespace domino_server
                     turno = 0;
                 evento_pasado = aux;
                 server_udp.enviar_MensajeDeJuego(jugadores[turno].getNombre(), punta1, punta2, evento_pasado);
+                mensaje += jugadores[turno].getNombre();
+                forma.agregar_linea(mensaje);
             }
 
             Ficha f = null;
@@ -212,6 +223,7 @@ namespace domino_server
             }
             if (ban)
             {
+                forma.agregar_linea(jugadores[turno].getNombre() + " jugo la ficha " + f.ToString() + "por la punta " + (punta?"uno":"dos"));
                 jugadores[turno].fichas.Remove(f);
                 bool trancado = comprobarTranca();
                 if (jugadores[turno].fichas.Count != 0 && !trancado)
@@ -223,6 +235,7 @@ namespace domino_server
                         turno = 0;
                     evento_pasado = aux;
                     server_udp.enviar_MensajeDeJuego(jugadores[turno].getNombre(), punta1, punta2, evento_pasado);
+                    forma.agregar_linea("El turno es de: " + jugadores[turno].getNombre());
                 }
                 else
                 {
@@ -285,6 +298,7 @@ namespace domino_server
 
         void EliminarJugador(int i)
         {
+            forma.agregar_linea("Se elimino al jugador " + jugadores[i].getNombre());
             if (i == saque)
                 if (saque == 0)
                     saque = jugadores.Count - 1;
@@ -303,10 +317,12 @@ namespace domino_server
                 Puntaje[] puntuacion = new Puntaje[jugadores.Count];
                 puntuacion[0] = new Puntaje(jugadores[0].getNombre(), jugadores[0].getPuntuacion());
                 server_udp.enviar_FinDePartida(jugadores[0].getNombre(), motivo, puntuacion);
+                forma.agregar_linea("El jugador " + jugadores[0].getNombre() + " ganó la partida por motivo: " + motivo);
                 return;
             }
             evento_pasado = aux;
             server_udp.enviar_MensajeDeJuego(jugadores[turno].getNombre(), punta1, punta2, evento_pasado);
+            forma.agregar_linea("El turno es de: " + jugadores[turno].getNombre());
         }
 
         void Reiniciar()
@@ -324,8 +340,10 @@ namespace domino_server
             punta1 = punta2 = -1;
             inicializarJuego();
             server_udp.enviar_InicioRonda();
+            forma.agregar_linea("Comienzo de ronda " + ronda);
             repartirFichas();
             server_udp.enviar_MensajeDeJuego(jugadores[saque].getNombre(), punta1, punta2, evento_pasado);
+            forma.agregar_linea("El turno de saque es de: " + jugadores[turno].getNombre());
         }
 
         void comprobarFinal(string motivo, int c)
@@ -340,11 +358,13 @@ namespace domino_server
                 }
                 server_udp.enviar_FinDePartida(jugadores[c].getNombre(), motivo, puntuacion);
                 forma.visibilidadBoton(true);
+                forma.agregar_linea("El jugador " + jugadores[c].getNombre() + " ganó la partida por motivo: " + motivo);
             }
             else
             {
                 server_udp.enviar_FinDeRonda(jugadores[c].getNombre(), motivo, jugadores[c].getPuntuacion());
                 Reiniciar();
+                forma.agregar_linea("El jugador " + jugadores[c].getNombre() + " ganó la ronda por motivo: " + motivo + " con " + jugadores[c].getPuntuacion() + "puntos");
             }
         }
 
