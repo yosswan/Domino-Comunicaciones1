@@ -76,10 +76,14 @@ namespace domino_cliente
             forma.fichas.Clear();
             solicitud = false;
             jugando = false;
+            primeraJugada = true;
+            mensajeInicio = false;
+            mensajeRonda = false;
             conectado = false;
             forma.ModificarInterfaz(1);
             forma.juego.clear();
             forma.visibilidadBoton3(false);
+            socket.DropMulticastGroup(IPAddress.Parse(multicastIP));
             for (int i = 0; i < 4; i++)
             {
                 forma.ModificarJugador("", i);

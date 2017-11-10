@@ -22,6 +22,7 @@ namespace domino_cliente
         public static string IP_Broadcast = "255.255.255.255";
         public static IPEndPoint IP_servidor;
         public static string direccionMAC;
+        public static string multicastIP;
         public static int PUERTO_SERVIDOR = 3001;
         public static NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
 

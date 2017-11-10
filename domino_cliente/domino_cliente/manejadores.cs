@@ -50,10 +50,11 @@ namespace domino_cliente
 
         public static void AtenderDisponibilidad(Disponibilidad disponibilidad)
         {
-                socket.JoinMulticastGroup(IPAddress.Parse(disponibilidad.multicast_ip));
-                conectado = true;
-                forma.juego.identificador = disponibilidad.jugador;
-                forma.ModificarInterfaz(2);
+            multicastIP = disponibilidad.multicast_ip;
+            socket.JoinMulticastGroup(IPAddress.Parse(disponibilidad.multicast_ip));
+            conectado = true;
+            forma.juego.identificador = disponibilidad.jugador;
+            forma.ModificarInterfaz(2);
         }
 
         public void FallaConexion()
@@ -76,6 +77,7 @@ namespace domino_cliente
             if (mensaje.tipo == 3)
                 if (primeraJugada)
                 {
+                    primeraJugada = false;
                     jugando = true;
                     hiloVerificacion = new Thread(new ThreadStart(tareaHiloVerificacion));
                     if (mensaje.jugador == forma.juego.identificador)
@@ -95,18 +97,20 @@ namespace domino_cliente
             {
                 forma.fichas.Clear();
                 forma.juego.actualizarPuntuacion(mensaje.jugador, mensaje.puntuacion);
+                forma.juego.Reiniciar();
             }
             else if (mensaje.tipo == 5)
             {
                 foreach (Puntaje p in mensaje.puntuacion_general)
                 {
                     forma.juego.actualizarPuntuacion(p.jugador, p.puntuacion);
-                    forma.visibilidadBoton3(true);
                 }
+                forma.visibilidadBoton3(true);
+                jugando = false;
             }
             else if (mensaje.tipo == 6)
             {
-                //mensaje de desconexion
+                forma.juego.quitarJugador(mensaje.jugador);
             }
         }
     }

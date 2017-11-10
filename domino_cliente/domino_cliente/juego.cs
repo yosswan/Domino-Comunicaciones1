@@ -13,7 +13,7 @@ namespace domino_cliente
         public int cantidadJugadores;
         public int punta2, punta1, pos2, pos1;
         parametro_string_entero actualizarJugadores;
-        public string nombre = "jugador007";
+        public string nombre = "jugador";
         public string identificador;
 
         public Juego(parametro_string_entero delegado)
@@ -24,6 +24,8 @@ namespace domino_cliente
             jugadores = new List<Jugador>();
             cantidadJugadores = 0;
             actualizarJugadores = delegado;
+            Random r = new Random();
+            nombre += r.Next(25) + r.Next(25);
         }
 
         public void clear()
@@ -33,6 +35,25 @@ namespace domino_cliente
             punta1 = punta2 = -1;
             jugadores.Clear();
             cantidadJugadores = 0;
+        }
+
+        public void Reiniciar()
+        {
+            pos2 = 0;
+            pos1 = 27;
+            punta1 = punta2 = -1;
+        }
+
+        public void quitarJugador(string jugador)
+        {
+            Jugador aux = null;
+            foreach (var item in jugadores)
+            {
+                if (item.identificador == jugador)
+                    aux = item;
+            }
+            jugadores.Remove(aux);
+            cantidadJugadores--;
         }
 
         public void actualizarPuntuacion( string nombre, int puntos)
@@ -68,13 +89,11 @@ namespace domino_cliente
 
         public void agregarFicha(ValorFicha f, bool punta, string jugador)
         {
-            bool ban = false;
             foreach (Jugador j in jugadores)
             {
                 if (j.identificador == jugador)
                 {
                     j.agregarFicha(f);
-                    ban = true;
                 }
             }
 
