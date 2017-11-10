@@ -125,6 +125,11 @@ namespace domino_cliente
             return new ValorFicha(entero_uno, entero_dos);
         }
 
+        public Token getToken()
+        {
+            return new Token(this.token);
+        }
+
         public Ficha()
         {
             token = "-1";

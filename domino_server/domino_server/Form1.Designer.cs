@@ -39,7 +39,7 @@
             this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listView1.Location = new System.Drawing.Point(32, 74);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(306, 214);
+            this.listView1.Size = new System.Drawing.Size(468, 214);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.List;
@@ -48,7 +48,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(28, 18);
+            this.label1.Location = new System.Drawing.Point(158, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(188, 24);
             this.label1.TabIndex = 1;
@@ -65,7 +65,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(263, 300);
+            this.button1.Location = new System.Drawing.Point(425, 300);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 3;
@@ -78,7 +78,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(367, 335);
+            this.ClientSize = new System.Drawing.Size(546, 335);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);

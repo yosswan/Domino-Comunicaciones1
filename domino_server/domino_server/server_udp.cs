@@ -61,7 +61,17 @@ namespace domino_server
 
         public static void enviar_data( byte[] buffer, IPEndPoint destino)
         {
-            socket.Send(buffer, buffer.Length, destino);
+            try
+            {
+                destino.Port = 3002;
+                socket.Send(buffer, buffer.Length, destino);
+                destino.Port = 3003;
+                socket.Send(buffer, buffer.Length, destino);
+            }
+            catch
+            {
+
+            }
         }
 
         public static void enviar_Mesa(IPEndPoint ip)
@@ -74,9 +84,9 @@ namespace domino_server
             server_tcp.enviar_data(ObjectToByte(new Disponibilidad(multicastIP, identificador)), pos);
         }
 
-        public static void enviar_Fichas(Ficha[] fichas, IPEndPoint ip)
+        public static void enviar_Fichas(Ficha[] fichas, int pos)
         {
-            enviar_data(ObjectToByte(new Fichas(fichas)), ip);
+            server_tcp.enviar_data(ObjectToByte(new Fichas(fichas)), pos);
         }
 
         public static void enviar_MensajeDeJuego(string jugador, int punta1, int punta2, Evento evento)

@@ -66,6 +66,7 @@ namespace domino_cliente
 
         public static void AtenderFichas(Fichas fichas)
         {
+            
             for (int i = 0; i < fichas.fichas.Length; i++)
             {
                 forma.fichas.Add(fichas.fichas[i]);
@@ -102,10 +103,11 @@ namespace domino_cliente
             }
             else if (mensaje.tipo == 5)
             {
-                foreach (Puntaje p in mensaje.puntuacion_general)
-                {
-                    forma.juego.actualizarPuntuacion(p.jugador, p.puntuacion);
-                }
+                if(mensaje.puntuacion_general != null)
+                    foreach (Puntaje p in mensaje.puntuacion_general)
+                    {
+                        forma.juego.actualizarPuntuacion(p.jugador, p.puntuacion);
+                    }
                 forma.visibilidadBoton3(true);
                 jugando = false;
             }

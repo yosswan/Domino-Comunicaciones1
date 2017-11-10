@@ -14,6 +14,7 @@ namespace domino_server
         public string identificador;
         public IPEndPoint ip;
         int puntuacion;
+        public int pos;
         public parametro_string agregarLinea;
 
         public Jugador(string nombre, string identificador, IPEndPoint ip, int pos, parametro_string delegado)
@@ -23,6 +24,7 @@ namespace domino_server
             this.ip = ip;
             agregarLinea = delegado;
             agregarLinea(label());
+            this.pos = pos;
         }
 
         public DatosJugador getDatos()

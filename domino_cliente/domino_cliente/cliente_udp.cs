@@ -112,12 +112,12 @@ namespace domino_cliente
 
         public static void enviar_verificacion()
         {
-            enviar_data(ObjectToByte(new Verificacion(forma.juego.identificador)), IP_servidor);
+            cliente_tcp.enviar_data(ObjectToByte(new Verificacion(forma.juego.identificador)));
         }
 
         public static void enviar_Jugada(Token f, bool punta)
         {
-            enviar_data(ObjectToByte(new Jugada(f, punta)), IP_servidor);
+            cliente_tcp.enviar_data(ObjectToByte(new Jugada(f, punta)));
         }
 
     }

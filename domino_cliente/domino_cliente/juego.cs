@@ -15,8 +15,9 @@ namespace domino_cliente
         parametro_string_entero actualizarJugadores;
         public string nombre = "jugador";
         public string identificador;
+        Form1 forma;
 
-        public Juego(parametro_string_entero delegado)
+        public Juego(parametro_string_entero delegado, Form1 forma)
         {
             pos2 = 0;
             pos1 = 27;
@@ -26,6 +27,7 @@ namespace domino_cliente
             actualizarJugadores = delegado;
             Random r = new Random();
             nombre += r.Next(25) + r.Next(25);
+            this.forma = forma;
         }
 
         public void clear()
@@ -83,45 +85,49 @@ namespace domino_cliente
             else
             {
                 jugadores.Add(new Jugador(d.nombre, d.identificador, cantidadJugadores, actualizarJugadores));
+                forma.ModificarJugador(jugadores[cantidadJugadores].label(), cantidadJugadores);
                 cantidadJugadores++;
             }
         }
 
         public void agregarFicha(ValorFicha f, bool punta, string jugador)
         {
-            foreach (Jugador j in jugadores)
+            if (f != null)
             {
-                if (j.identificador == jugador)
+                foreach (Jugador j in jugadores)
                 {
-                    j.agregarFicha(f);
+                    if (j.identificador == jugador)
+                    {
+                        j.agregarFicha(f);
+                    }
                 }
-            }
 
-            if (punta)
-            {
-                if (f.entero_uno == punta1)
+                if (punta)
                 {
-                    punta1 = f.entero_dos;
+                    if (f.entero_uno == punta1)
+                    {
+                        punta1 = f.entero_dos;
+                    }
+                    else if (f.entero_dos == punta1)
+                    {
+                        punta1 = f.entero_uno;
+                    }
+                    fichas[pos1] = f;
+                    pos1--;
                 }
-                else if (f.entero_dos == punta1)
+                else
                 {
-                    punta1 = f.entero_uno;
+                    if (f.entero_uno == punta2)
+                    {
+                        punta2 = f.entero_dos;
+                    }
+                    else if (f.entero_dos == punta2)
+                    {
+                        punta2 = f.entero_uno;
+                    }
+                    fichas[pos2] = f;
+                    pos2++;
                 }
-                fichas[pos1] = f;
-                pos1--;
-            }
-            else
-            {
-                if (f.entero_uno == punta2)
-                {
-                    punta2 = f.entero_dos;
-                }
-                else if (f.entero_dos == punta2)
-                {
-                    punta2 = f.entero_uno;
-                }
-                fichas[pos2] = f;
-                pos2++;
             }
         }
     }

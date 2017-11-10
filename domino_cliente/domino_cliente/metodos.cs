@@ -22,13 +22,13 @@ namespace domino_cliente
                 {
                     if (f.entero_uno == mensaje.punta_dos || f.entero_dos == mensaje.punta_dos)
                     {
-                        enviar_Jugada(f, false);
+                        enviar_Jugada(f.getToken(), false);
                         n = forma.fichas.IndexOf(f);
                         break;
                     }
                     else if (f.entero_uno == mensaje.punta_uno || f.entero_dos == mensaje.punta_uno)
                     {
-                        enviar_Jugada(f, true);
+                        enviar_Jugada(f.getToken(), true);
                         n = forma.fichas.IndexOf(f);
                         break;
                     }
@@ -36,11 +36,11 @@ namespace domino_cliente
                 if (n != -1)
                     forma.fichas.RemoveAt(n);
                 else
-                    enviar_Jugada(new Ficha(), false);
+                    enviar_Jugada(new Token(), false);
             }
             else
             {
-                int maxDoble = 0, maxFicha = 0, iDoble = -1, iFicha = -1;
+                int maxDoble = -1, maxFicha = -1, iDoble = -1, iFicha = -1;
                 for (int j = 0; j < forma.fichas.Count; j++)
                 {
                     if(forma.fichas[j].entero_dos == forma.fichas[j].entero_uno)
@@ -59,12 +59,12 @@ namespace domino_cliente
                 }
                 if (iDoble > -1)
                 {
-                    enviar_Jugada(forma.fichas[iDoble], true);
+                    enviar_Jugada(forma.fichas[iDoble].getToken(), true);
                     forma.fichas.RemoveAt(iDoble);
                 }
                 else
                 {
-                    enviar_Jugada(forma.fichas[iFicha], true);
+                    enviar_Jugada(forma.fichas[iFicha].getToken(), true);
                     forma.fichas.RemoveAt(iFicha);
                 }
             }
@@ -76,10 +76,12 @@ namespace domino_cliente
             forma.fichas.Clear();
             solicitud = false;
             jugando = false;
+            
             primeraJugada = true;
             mensajeInicio = false;
             mensajeRonda = false;
             conectado = false;
+            corriendo = false;
             forma.ModificarInterfaz(1);
             forma.juego.clear();
             forma.visibilidadBoton3(false);

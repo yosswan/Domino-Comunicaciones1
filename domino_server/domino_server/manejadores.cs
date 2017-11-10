@@ -8,11 +8,13 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace domino_server
 {
     partial class server_udp
     {
+
         public static bool seccion_critica = false;
 
         public static void atenderJugadorUDP(IPEndPoint ip)

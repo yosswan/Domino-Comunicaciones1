@@ -36,7 +36,7 @@ namespace domino_cliente
             modificarLabel(label(), pos);
         }
 
-        string label()
+        public string label()
         {
             return nombre + ": " + puntuacion + " puntos";
         }

@@ -26,16 +26,17 @@ namespace domino_cliente
         {
             InitializeComponent();
             Random r = new Random();
-            int puerto = 3002 + r.Next(1000);
-            cliente_udp.crear_socket(puerto);
+            //puertos aleatorios para pruebas en una pc
+            int puerto = 3001;
+            
             cliente_udp.obtenerMAC();
             cliente_udp.forma = this;
-            cliente_udp.hilo_escucha.Start();
+            
             cliente_tcp.forma = this;
             mesas = new List<IPEndPoint>();
             fichas = new List<Ficha>();
             listView1.MultiSelect = false;
-            juego = new Juego(this.ModificarJugador);
+            juego = new Juego(this.ModificarJugador, this);
         }
 
         public void agregar_item(string linea)
@@ -90,6 +91,8 @@ namespace domino_cliente
                     label2.Visible = label3.Visible = label4.Visible = label5.Visible = false;
                     label6.Visible = label7.Visible = label8.Visible = label9.Visible = false;
                     label10.Visible = label11.Visible = label12.Visible = label13.Visible = false;
+                    textBox1.Visible = true;
+                    button4.Visible = true;
                 }
             }
         }
@@ -106,25 +109,25 @@ namespace domino_cliente
             {
                 switch (i)
                 {
-                    case 1:
+                    case 0:
                         label2.Text = ficha.entero_uno + " | " + ficha.entero_dos;
                         break;
-                    case 2:
+                    case 1:
                         label3.Text = ficha.entero_uno + " | " + ficha.entero_dos;
                         break;
-                    case 3:
+                    case 2:
                         label4.Text = ficha.entero_uno + " | " + ficha.entero_dos;
                         break;
-                    case 4:
+                    case 3:
                         label5.Text = ficha.entero_uno + " | " + ficha.entero_dos;
                         break;
-                    case 5:
+                    case 4:
                         label6.Text = ficha.entero_uno + " | " + ficha.entero_dos;
                         break;
-                    case 6:
+                    case 5:
                         label7.Text = ficha.entero_uno + " | " + ficha.entero_dos;
                         break;
-                    case 7:
+                    case 6:
                         label8.Text = ficha.entero_uno + " | " + ficha.entero_dos;
                         break;
                 }
@@ -200,6 +203,7 @@ namespace domino_cliente
 
         private void button2_Click(object sender, EventArgs e)
         {
+            cliente_udp.corriendo = true;
             if (listView1.SelectedIndices.Count != 0)
             {
                 cliente_udp.enviar_jugador(juego.nombre, mesas.ElementAt(listView1.SelectedIndices[0]));
@@ -242,6 +246,15 @@ namespace domino_cliente
         private void button3_Click(object sender, EventArgs e)
         {
             cliente_udp.Reiniciar();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            cliente_udp.crear_socket(Int32.Parse(textBox1.Text));
+            cliente_udp.hilo_escucha.Start();
+            button4.Visible = false;
+            textBox1.Visible = false;
         }
     }
 }
