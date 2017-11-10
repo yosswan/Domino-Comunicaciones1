@@ -189,7 +189,7 @@ namespace domino_cliente
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            cliente_udp.corriendo = false;
+            cliente_udp.corriendo = cliente_tcp.corriendo = false;
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -202,7 +202,6 @@ namespace domino_cliente
             if (listView1.SelectedIndices.Count != 0)
             {
                 cliente_udp.enviar_jugador(juego.nombre, mesas.ElementAt(listView1.SelectedIndices[0]));
-                cliente_udp.solicitud = true;
             }
         }
 

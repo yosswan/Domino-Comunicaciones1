@@ -21,7 +21,7 @@ namespace domino_server
                 enviar_Mesa(ip);
         }
 
-        public static void atenderJugadorTCP(string nombre, IPEndPoint ip)
+        public static void atenderJugadorTCP(string nombre, int pos)
         {
             if (!seccion_critica)
             {
@@ -30,8 +30,8 @@ namespace domino_server
                 {
                     tiempo = 0;
                     string identificador = "jugador " + forma.juego.jugadores.Count;
-                    forma.juego.agregarJugador(nombre, identificador, ip);
-                    enviar_Disponibilidad(ip, multicastIP, identificador);
+                    forma.juego.agregarJugador(nombre, identificador, (IPEndPoint)server_tcp.clientes[pos].RemoteEndPoint);
+                    enviar_Disponibilidad(pos, multicastIP, identificador);
                 }
             }
         }

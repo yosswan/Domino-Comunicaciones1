@@ -82,8 +82,22 @@ namespace domino_cliente
 
         public static void enviar_jugador(string nombre, IPEndPoint ip)
         {
-            IP_servidor = ip;
-            enviar_data(ObjectToByte(new NombreJugador(nombre)), ip);
+            if (!solicitud)
+            {
+                IP_servidor = ip;
+                cliente_tcp.ip = ip;
+                if (cliente_tcp.crearSocket())
+                {
+                    cliente_tcp.hilo_escucha.Start();
+                    if (!cliente_tcp.enviar_data(ObjectToByte(new NombreJugador(nombre))))
+                    {
+                        cliente_tcp.corriendo = false;
+                        cliente_tcp.desconectar();
+                    }
+                    else
+                        solicitud = true;
+                }
+            }
         }
 
         public static void enviar_verificacion()

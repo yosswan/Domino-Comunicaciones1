@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace domino_server
 {
@@ -15,12 +16,11 @@ namespace domino_server
     {
         public static UdpClient socket;
         public static IPEndPoint enlace;
-        public static bool corriendo = false;
+        public static bool corriendo = true;
 
         public static string multicastIP = "224.1.0.24";
         public static IPEndPoint multicastEndPoint = new IPEndPoint(IPAddress.Parse(multicastIP), 3001);
 
-        public static EndPoint[] ip_clientes = new IPEndPoint[4];
         public static int clientes = 0;
         public static int tiempo = 0;
         public static int puerto = 3001;
@@ -31,40 +31,16 @@ namespace domino_server
 
         public static void recibir_data()
         {
-            socket = new UdpClient(3001);
+            socket = new UdpClient(puerto);
             byte[] buffer;
             IPEndPoint ipRemota = new IPEndPoint(IPAddress.Any, 0);
 
-            corriendo = true;
-
-            while (corriendo)
+            while (corriendo && !forma.juego.jugando)
             {
-                
-                if(!forma.juego.jugando)
-                {
-                    if(tiempo>0)
-                    {
-                        forma.cambiar_label("Espera: "+tiempo/10.0+" s");
-                    }
-                    else
-                    {
-                        //forma.cambiar_label("");
-                    }
-                }
                 
                 if (socket.Available == 0) 
                 {
                     Thread.Sleep(100);
-                    if (clientes >= 2 && !forma.juego.jugando)
-                    {
-                        tiempo++;
-                        if(tiempo==100)
-                        {
-                            tiempo = 0;
-                            forma.juego.jugando = true;
-                            forma.cambiar_label("Jugando...");
-                        }
-                    }
                     continue; 
                 }
                 
@@ -77,22 +53,8 @@ namespace domino_server
 
                 if (!forma.juego.jugando)
                 {
-                    tiempo = 0;
-                    ip_clientes[clientes] = ipRemota;
                     enviar_Mesa(ipRemota);
-                    forma.agregar_linea(clientes + " " + ipRemota.ToString());
-                    clientes++;
 
-                    if(clientes==4)
-                    {
-                        forma.juego.jugando = true;
-                        forma.cambiar_label("Jugando...");
-                    }
-
-                }
-                else
-                {
-                    //enviar_data(ipRemota, "Mesa llena");
                 }
             } 
         }
@@ -107,9 +69,9 @@ namespace domino_server
             enviar_data(ObjectToByte(new Mesa(forma.nombre_mesa)), ip);
         }
 
-        public static void enviar_Disponibilidad(IPEndPoint ip, string multicastIP, string identificador)
+        public static void enviar_Disponibilidad(int pos, string multicastIP, string identificador)
         {
-            enviar_data(ObjectToByte(new Disponibilidad(multicastIP, identificador)), ip);
+            server_tcp.enviar_data(ObjectToByte(new Disponibilidad(multicastIP, identificador)), pos);
         }
 
         public static void enviar_Fichas(Ficha[] fichas, IPEndPoint ip)

@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 namespace domino_server
 {
     [DataContract]
-    class Paquete
+    public class Paquete
     {
         [DataMember]
         public string identificador = "DOMINOCOMUNICACIONESI";
@@ -80,7 +80,7 @@ namespace domino_server
     }
 
     [DataContract]
-    class DatosJugador : Paquete
+    public class DatosJugador : Paquete
     {
         [DataMember]
         public string identificador;
