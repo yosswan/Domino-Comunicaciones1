@@ -55,8 +55,15 @@ namespace domino_server
         public void iniciar()
         {
             jugando = true;
+            DatosJugador[] datos = new DatosJugador[jugadores.Count];
+            for (int i = 0; i < jugadores.Count; i++)
+            {
+                datos[i] = jugadores[i].getDatos();
+            }
+            server_udp.enviar_InicioDeJuego(datos);
+            server_udp.enviar_InicioRonda();
             repartirFichas();
-            server_udp.enviar_MensajeDeJuego(jugadores[0].getNombre(), punta1, punta2, evento_pasado);
+            server_udp.enviar_MensajeDeJuego(jugadores[saque].getNombre(), punta1, punta2, evento_pasado);
             forma.limpiarLisview();
             forma.cambiar_label("Eventos:");
         }
@@ -289,6 +296,14 @@ namespace domino_server
                     mano = 0;
             Evento aux = new Evento(1, jugadores[turno].getNombre(), null, false);
             jugadores.RemoveAt(i);
+            if (jugadores.Count == 1)
+            {
+                string motivo = "desconexion de los demas jugadores";
+                Puntaje[] puntuacion = new Puntaje[jugadores.Count];
+                puntuacion[0] = new Puntaje(jugadores[0].getNombre(), jugadores[0].getPuntuacion());
+                server_udp.enviar_FinDePartida(jugadores[0].getNombre(), motivo, puntuacion);
+                return;
+            }
             evento_pasado = aux;
             server_udp.enviar_MensajeDeJuego(jugadores[turno].getNombre(), punta1, punta2, evento_pasado);
         }
@@ -307,6 +322,7 @@ namespace domino_server
             pos1 = 27;
             punta1 = punta2 = -1;
             inicializarJuego();
+            server_udp.enviar_InicioRonda();
             repartirFichas();
             server_udp.enviar_MensajeDeJuego(jugadores[saque].getNombre(), punta1, punta2, evento_pasado);
         }

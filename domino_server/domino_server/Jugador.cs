@@ -25,6 +25,11 @@ namespace domino_server
             agregarLinea(label());
         }
 
+        public DatosJugador getDatos()
+        {
+            return new DatosJugador(identificador, nombre);
+        }
+
         public void agregarFicha(Ficha f)
         {
             fichas.Add(f);
