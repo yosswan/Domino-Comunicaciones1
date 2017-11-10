@@ -80,7 +80,7 @@ namespace domino_cliente
     }
 
     [DataContract]
-    public class DatosJugador : Paquete
+    public class DatosJugador
     {
         [DataMember]
         public string identificador;

@@ -59,7 +59,17 @@ namespace domino_cliente
                 }
 
                 byte[] buffer = socket.Receive(ref ipRemota);
-                AtenderMesa(ReadToMesa(buffer), ipRemota);
+                if (!jugando)
+                    if(!solicitud)
+                        AtenderMesa(ReadToMesa(buffer), ipRemota);
+                    else if (!mensajeInicio)
+                        AtenderInicioDeJuego(ReadToInicioDeJuego(buffer));
+                    else if (!mensajeRonda)
+                        AtenderInicioRonda(ReadToInicioRonda(buffer));
+                    else
+                        AtenderMensajeGeneral(ReadToMensajeGeneral(buffer));
+                else
+                    AtenderMensajeGeneral(ReadToMensajeGeneral(buffer));
             }
         }
 

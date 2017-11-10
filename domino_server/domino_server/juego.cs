@@ -54,6 +54,8 @@ namespace domino_server
 
         public void iniciar()
         {
+            forma.limpiarLisview();
+            forma.cambiar_label("Eventos:");
             jugando = true;
             DatosJugador[] datos = new DatosJugador[jugadores.Count];
             for (int i = 0; i < jugadores.Count; i++)
@@ -64,8 +66,7 @@ namespace domino_server
             server_udp.enviar_InicioRonda();
             repartirFichas();
             server_udp.enviar_MensajeDeJuego(jugadores[saque].getNombre(), punta1, punta2, evento_pasado);
-            forma.limpiarLisview();
-            forma.cambiar_label("Eventos:");
+            
         }
 
         public void repartirFichas()

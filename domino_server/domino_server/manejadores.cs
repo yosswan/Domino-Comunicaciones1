@@ -32,7 +32,9 @@ namespace domino_server
                     string identificador = "jugador " + forma.juego.jugadores.Count;
                     forma.juego.agregarJugador(nombre, identificador, (IPEndPoint)server_tcp.clientes[pos].RemoteEndPoint);
                     enviar_Disponibilidad(pos, multicastIP, identificador);
+
                 }
+                seccion_critica = false;
             }
         }
 

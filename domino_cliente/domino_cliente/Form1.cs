@@ -25,7 +25,8 @@ namespace domino_cliente
         public Form1()
         {
             InitializeComponent();
-            int puerto = 3002;
+            Random r = new Random();
+            int puerto = 3002 + r.Next(1000);
             cliente_udp.crear_socket(puerto);
             cliente_udp.obtenerMAC();
             cliente_udp.forma = this;
