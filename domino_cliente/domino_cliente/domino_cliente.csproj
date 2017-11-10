@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cliente_tcp.cs" />
     <Compile Include="cliente_udp.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

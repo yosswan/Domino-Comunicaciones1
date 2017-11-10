@@ -30,6 +30,7 @@ namespace domino_cliente
             cliente_udp.obtenerMAC();
             cliente_udp.forma = this;
             cliente_udp.hilo_escucha.Start();
+            cliente_tcp.forma = this;
             mesas = new List<IPEndPoint>();
             fichas = new List<Ficha>();
             listView1.MultiSelect = false;

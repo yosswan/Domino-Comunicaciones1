@@ -22,6 +22,8 @@ namespace domino_server
         {
             InitializeComponent();
             juego = new Juego(this);
+            server_tcp.forma = this;
+            server_tcp.hilo_recepcion.Start();
         }
 
         public void cambiar_label(string msj)
