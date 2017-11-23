@@ -88,18 +88,18 @@ namespace domino_cliente
                     primeraJugada = false;
                     jugando = true;
                     //hiloVerificacion = new Thread(new ThreadStart(tareaHiloVerificacion));
+
+                    for (int i = 0; i < forma.juego.jugadores.Count; i++)
+                    {
+                        if (forma.juego.jugadores[i].identificador == mensaje.identificador)
+                            forma.juego.mano = i;
+                    }
+
                     if (mensaje.jugador == forma.juego.identificador)
                     {
                         GenerarJugada(mensaje, true);
                     }
-                    else
-                    {
-                        for (int i = 0; i < forma.juego.jugadores.Count; i++)
-                        {
-                            if (forma.juego.jugadores[i].identificador == mensaje.identificador)
-                                forma.juego.mano = i;
-                        }
-                    }
+
                 }
                 else
                 {
@@ -107,21 +107,32 @@ namespace domino_cliente
                         forma.juego.agregarFicha(mensaje.evento_pasado.ficha, mensaje.evento_pasado.punta, mensaje.evento_pasado.jugador);
                     else
                     {
-                        for (int i = 0; i < forma.juego.jugadores.Count; i++)
+                        if (mensaje.evento_pasado.tipo == 2)
                         {
-                            if (forma.juego.jugadores[i].identificador == mensaje.evento_pasado.jugador)
+                            foreach (var i in forma.juego.jugadores)
                             {
-                                if (i == forma.juego.mano)
-                                    if (forma.juego.mano < forma.juego.jugadores.Count - 1)
-                                    {
-                                        forma.juego.mano++;
-                                    }
-                                    else
-                                        forma.juego.mano = 0;
-                                forma.juego.jugadores.RemoveAt(i);
-                                break;
+                                if (i.identificador == mensaje.evento_pasado.jugador)
+                                {
+                                    i.agregarPase(mensaje.evento_pasado.punta ? forma.juego.punta1 : forma.juego.punta2);
+                                    break;
+                                }
                             }
-                        }
+                        }else
+                            for (int i = 0; i < forma.juego.jugadores.Count; i++)
+                            {
+                                if (forma.juego.jugadores[i].identificador == mensaje.evento_pasado.jugador)
+                                {
+                                    if (i == forma.juego.mano)
+                                        if (forma.juego.mano < forma.juego.jugadores.Count - 1)
+                                        {
+                                            forma.juego.mano++;
+                                        }
+                                        else
+                                            forma.juego.mano = 0;
+                                    forma.juego.jugadores.RemoveAt(i);
+                                    break;
+                                }
+                            }
                     }
                     if (mensaje.jugador == forma.juego.identificador)
                     {

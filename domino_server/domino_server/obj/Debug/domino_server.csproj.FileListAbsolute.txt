@@ -73,3 +73,6 @@ C:\Users\yosswan.vecino\Documents\Proyecto Domino\domino_server\domino_server\ob
 C:\Users\yosswan.vecino\Documents\Proyecto Domino\domino_server\domino_server\obj\Debug\domino_server.Form1.resources
 C:\Users\yosswan.vecino\Documents\Proyecto Domino\domino_server\domino_server\obj\Debug\domino_server.Properties.Resources.resources
 C:\Users\yosswan.vecino\Documents\Proyecto Domino\domino_server\domino_server\obj\Debug\domino_server.csproj.GenerateResource.Cache
+D:\pendrive\documentos\UNET\comunicaciones\Proyecto Domino\domino_server\domino_server\bin\Debug\domino_server.exe.config
+D:\pendrive\documentos\UNET\comunicaciones\Proyecto Domino\domino_server\domino_server\obj\Debug\domino_server.exe
+D:\pendrive\documentos\UNET\comunicaciones\Proyecto Domino\domino_server\domino_server\obj\Debug\domino_server.pdb

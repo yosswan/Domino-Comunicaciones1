@@ -90,3 +90,6 @@ C:\Users\yosswan.vecino\Documents\Proyecto Domino\domino_cliente\domino_cliente\
 C:\Users\yosswan.vecino\Documents\Proyecto Domino\domino_cliente\domino_cliente\obj\Debug\domino_cliente.Form1.resources
 C:\Users\yosswan.vecino\Documents\Proyecto Domino\domino_cliente\domino_cliente\obj\Debug\domino_cliente.Properties.Resources.resources
 C:\Users\yosswan.vecino\Documents\Proyecto Domino\domino_cliente\domino_cliente\obj\Debug\domino_cliente.csproj.GenerateResource.Cache
+D:\pendrive\documentos\UNET\comunicaciones\Proyecto Domino\domino_cliente\domino_cliente\bin\Debug\domino_cliente.exe.config
+D:\pendrive\documentos\UNET\comunicaciones\Proyecto Domino\domino_cliente\domino_cliente\obj\Debug\domino_cliente.exe
+D:\pendrive\documentos\UNET\comunicaciones\Proyecto Domino\domino_cliente\domino_cliente\obj\Debug\domino_cliente.pdb

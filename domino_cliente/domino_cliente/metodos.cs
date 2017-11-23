@@ -34,17 +34,6 @@ namespace domino_cliente
 
             if (!primeraJugada)
             {
-                if (mensaje.evento_pasado.tipo == 2)
-                {
-                    foreach (var i in forma.juego.jugadores)
-                    {
-                        if (i.identificador == mensaje.evento_pasado.jugador)
-                        {
-                            i.agregarPase(mensaje.evento_pasado.punta ? forma.juego.punta1 : forma.juego.punta2);
-                            break;
-                        }
-                    }
-                }
 
                 int n = -1;
                 foreach (Ficha f in forma.fichas)
