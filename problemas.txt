@@ -5,7 +5,7 @@ agregar al juego ficha que juego
 error en server udp: Se ha forzado la interrupción de una conexión existente por el host remoto
 
 Modificaciones para pruebas:
-- server envia multicast a puertos 3002 y 3003
+- server envia multicast a puertos 3002, 3003, 3004 y 3005
 - server espera 10 seg
 - eleccion de puerto en cliente
 
