@@ -10,15 +10,15 @@ namespace domino_server
 {
     public class Juego
     {
-        List<Ficha> fichas;
+        List<Ficha> fichas, pozo;
         Ficha[] juego = new Ficha[28];
         public List<Jugador> jugadores;
-        public int punta2, punta1, pos2, pos1, mano = 0, turno = 0;
+        public int punta2, punta1, pos2, pos1, mano = 0, mano_inicial = 0, turno = 0;
         public bool jugando = false;
         Evento evento_pasado;
         Form1 forma;
         bool primeraJugada = true;
-        public int ronda = 0, saque = 0, baseToken = 0;
+        public int ronda = 0, baseToken = 0;
 
         public Juego(Form1 form)
         {
@@ -27,6 +27,7 @@ namespace domino_server
             punta1 = punta2 = -1;
             jugadores = new List<Jugador>();
             fichas = new List<Ficha>();
+            pozo = new List<Ficha>();
             cargarFichas();
             evento_pasado = null;
             forma = form;
@@ -70,8 +71,9 @@ namespace domino_server
             server_udp.enviar_InicioRonda();
             forma.agregar_linea("Mensaje de inicio de ronda enviado a " + server_udp.multicastIP);
             repartirFichas();
-            server_udp.enviar_MensajeDeJuego(jugadores[saque].identificador, punta1, punta2, evento_pasado);
-            forma.agregar_linea("El juego inicia con: " + jugadores[saque].identificador);
+            turno = mano_inicial;
+            server_udp.enviar_MensajeDeJuego(jugadores[mano_inicial].identificador, punta1, punta2, evento_pasado);
+            forma.agregar_linea("El juego inicia con: " + jugadores[mano_inicial].identificador);
         }
 
         public void repartirFichas()
@@ -91,8 +93,6 @@ namespace domino_server
                 for (int j = 0; j < 7; j++)
                 {
                     r = random.Next(fichas.Count);
-                    if (ronda == 0 && fichas[r].entero_dos == fichas[r].entero_uno && fichas[r].entero_uno == 6)
-                        saque = i;
                     jugadores[i].agregarFicha(fichas[r]);
                     mensaje += fichas[r].ToString();
                     fichas.RemoveAt(r);
@@ -100,6 +100,51 @@ namespace domino_server
                 server_udp.enviar_Fichas(jugadores[i].fichas.ToArray(), jugadores[i].pos);
                 forma.agregar_linea(mensaje);
             }
+
+            bool doble = false;
+            int maxDoble = -1, max = -1, imax = 0, imaxDoble = 0;
+            for (int i = 0; i < this.fichas.Count; i++)
+            {
+                if (!fichas.Contains(this.fichas[i]))
+                {
+                    if (this.fichas[i].isDoble())
+                    {
+                        doble = true;
+                        if (this.fichas[i].getPintas() > maxDoble)
+                        {
+                            maxDoble = this.fichas[i].getPintas();
+                            imaxDoble = i;
+                        }
+                    }
+                    else
+                    {
+                        if (this.fichas[i].getPintas() > max)
+                        {
+                            max = this.fichas[i].getPintas();
+                            imax = i;
+                        }
+                    }
+                }
+            }
+
+            if(ronda == 0)
+                for (int i = 0; i < jugadores.Count; i++)
+                {
+                    if (doble)
+                    {
+                        if (jugadores[i].fichas.Contains(this.fichas[imaxDoble]))
+                        {
+                            mano_inicial = i;
+                            break;
+                        }
+                    }else
+                        if (jugadores[i].fichas.Contains(this.fichas[imax]))
+                        {
+                            mano_inicial = i;
+                            break;
+                        }
+                }
+            pozo = fichas;
             
         }
 
@@ -160,6 +205,7 @@ namespace domino_server
                 server_udp.enviar_MensajeDeJuego(jugadores[turno].identificador, punta1, punta2, evento_pasado);
                 mensaje += jugadores[turno].identificador;
                 forma.agregar_linea(mensaje);
+                return true;
             }
 
             Ficha f = null;
@@ -182,6 +228,7 @@ namespace domino_server
             {
                 if (primeraJugada)
                 {
+                    primeraJugada = false;
                     punta1 = f.entero_uno;
                     punta2 = f.entero_dos;
                     juego[pos2] = f;
@@ -316,24 +363,26 @@ namespace domino_server
 
         public void EliminarJugador(int i)
         {
-            //trampita
+            /*//trampita
             if (i >= jugadores.Count)
                 i = jugadores.Count - 1;
-            //
+            //*/
             forma.agregar_linea("Se elimino al jugador " + jugadores[i].identificador);
-            if (i == saque)
-                if (saque == 0)
-                    saque = jugadores.Count - 1;
-                else
-                    saque--;
+
             if (i == mano)
                 if (mano < jugadores.Count - 1)
                     mano++;
                 else
                     mano = 0;
+            if (i == mano_inicial)
+                if (mano_inicial == 0)
+                    mano_inicial = jugadores.Count - 1;
+                else
+                    mano_inicial--;
             if (i == jugadores.Count - 1)
                 turno = 0;
-            Evento aux = new Evento(1, jugadores[turno].identificador, null, false);
+            Evento aux = new Evento(1, jugadores[i].identificador, null, false);
+            pozo.AddRange(jugadores[i].fichas);
             jugadores.RemoveAt(i);
             if (jugadores.Count == 1)
             {
@@ -362,20 +411,23 @@ namespace domino_server
             {
                 item.fichas.Clear();
             }
-            if (saque < jugadores.Count - 1)
-                saque++;
+            if (mano_inicial < jugadores.Count - 1)
+                mano_inicial++;
             else
-                saque = 0;
+                mano_inicial = 0;
             pos2 = 0;
             pos1 = 27;
+            mano = mano_inicial;
+            turno = mano;
             punta1 = punta2 = -1;
             inicializarJuego();
             primeraJugada = true;
+            ronda++;
             server_udp.enviar_InicioRonda();
             forma.agregar_linea("Comienzo de ronda " + ronda);
             repartirFichas();
-            server_udp.enviar_MensajeDeJuego(jugadores[saque].identificador, punta1, punta2, evento_pasado);
-            forma.agregar_linea("El turno de saque es de: " + jugadores[turno].identificador);
+            server_udp.enviar_MensajeDeJuego(jugadores[mano_inicial].identificador, punta1, punta2, evento_pasado);
+            forma.agregar_linea("El turno de saque es de: " + jugadores[mano_inicial].identificador);
         }
 
         void comprobarFinal(string motivo, int c)
@@ -395,8 +447,8 @@ namespace domino_server
             else
             {
                 server_udp.enviar_FinDeRonda(jugadores[c].identificador, motivo, jugadores[c].getPuntuacion());
+                forma.agregar_linea("El jugador " + jugadores[c].identificador + " ganó la ronda por motivo: " + motivo + " con " + jugadores[c].getPuntuacion() + " puntos");
                 Reiniciar();
-                forma.agregar_linea("El jugador " + jugadores[c].identificador + " ganó la ronda por motivo: " + motivo + " con " + jugadores[c].getPuntuacion() + "puntos");
             }
         }
 
@@ -414,6 +466,13 @@ namespace domino_server
         bool comprobarTranca()
         {
             int[] vector = new int[7];
+
+            foreach (var item in pozo)
+            {
+                vector[item.entero_uno]++;
+                vector[item.entero_dos]++;
+            }
+
             for (int i = 0; i < 28; i++)
             {
                 if (juego[i] != null)
@@ -422,11 +481,8 @@ namespace domino_server
                     vector[juego[i].entero_dos]++;
                 }
             }
-            for (int i = 0; i < 7; i++)
-            {
-                if (vector[i] == 8)
-                    return true;
-            }
+            if (vector[punta1] == 8 && vector[punta2] == 8)
+                return true;
             return false;
         }
     }

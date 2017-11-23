@@ -132,6 +132,16 @@ namespace domino_server
             return new ValorFicha(entero_uno, entero_dos);
         }
 
+        public int getPintas()
+        {
+            return entero_dos + entero_uno;
+        }
+
+        public bool isDoble()
+        {
+            return entero_uno == entero_dos;
+        }
+
         public Ficha(string token, int uno, int dos)
         {
             this.token = token;

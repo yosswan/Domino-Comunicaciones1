@@ -1,0 +1,13 @@
+sincronizar recepcion de mensajes tcp y udp //hecho
+ip no coincide // no ha vuelto a ocurrir
+cliente que no saca piensa que es la primera jugada
+
+Modificaciones para pruebas:
+- server envia multicast a puertos 3002 y 3003
+- server espera 10 seg
+- eleccion de puerto en cliente
+
+Pruebas por hacer:
+- mas de 2 clientes
+- Pcs diferentes
+- iniciar de nuevo

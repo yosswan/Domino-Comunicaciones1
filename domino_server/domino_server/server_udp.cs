@@ -18,12 +18,13 @@ namespace domino_server
         public static IPEndPoint enlace;
         public static bool corriendo = true;
 
+        public static int puerto = 3001;
         public static string multicastIP = "224.1.0.24";
-        public static IPEndPoint multicastEndPoint = new IPEndPoint(IPAddress.Parse(multicastIP), 3001);
+        public static IPEndPoint multicastEndPoint = new IPEndPoint(IPAddress.Parse(multicastIP), puerto);
 
         public static int clientes = 0;
         public static int tiempo = 0;
-        public static int puerto = 3001;
+        
 
         public static Form1 forma;
 

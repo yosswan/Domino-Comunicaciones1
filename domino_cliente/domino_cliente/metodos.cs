@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Json;
+using System.Windows.Forms;
 
 namespace domino_cliente
 {
@@ -34,9 +35,13 @@ namespace domino_cliente
                     }
                 }
                 if (n != -1)
+                {
                     forma.fichas.RemoveAt(n);
+                }
                 else
+                {
                     enviar_Jugada(new Token(), false);
+                }
             }
             else
             {

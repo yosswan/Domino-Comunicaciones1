@@ -41,12 +41,18 @@ namespace domino_cliente
         {
             forma.cambiarRonda("Ronda: " + i.ronda);
             mensajeRonda = true;
+            primeraJugada = true;
         }
 
         public static void AtenderInicioDeJuego(InicioDeJuego i)
         {
-            forma.juego.agregarJugadores(i.jugadores);
-            mensajeInicio = true;
+            if (i.jugadores != null)
+            {
+                forma.juego.agregarJugadores(i.jugadores);
+                mensajeInicio = true;
+            }
+            else
+                MessageBox.Show("mensaje erroneo");
         }
 
         public static void AtenderDisponibilidad(Disponibilidad disponibilidad)
@@ -81,7 +87,7 @@ namespace domino_cliente
                 {
                     primeraJugada = false;
                     jugando = true;
-                    hiloVerificacion = new Thread(new ThreadStart(tareaHiloVerificacion));
+                    //hiloVerificacion = new Thread(new ThreadStart(tareaHiloVerificacion));
                     if (mensaje.jugador == forma.juego.identificador)
                     {
                         GenerarJugada(mensaje, true);
@@ -97,9 +103,13 @@ namespace domino_cliente
                 }
             else if (mensaje.tipo == 4)
             {
+                mensajeRonda = false;
+                jugando = false;
+                
                 forma.fichas.Clear();
                 forma.juego.actualizarPuntuacion(mensaje.jugador, mensaje.puntuacion);
                 forma.juego.Reiniciar();
+                //MessageBox.Show(forma.juego.identificador + " fin de ronda");
             }
             else if (mensaje.tipo == 5)
             {

@@ -27,7 +27,7 @@ namespace domino_cliente
             InitializeComponent();
             Random r = new Random();
             //puertos aleatorios para pruebas en una pc
-            int puerto = 3001;
+            int puerto = cliente_udp.PUERTO_SERVIDOR;
             
             cliente_udp.obtenerMAC();
             cliente_udp.forma = this;

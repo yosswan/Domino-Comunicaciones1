@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Json;
 using System.Net.NetworkInformation;
+using System.Windows.Forms;
 
 namespace domino_cliente
 {
@@ -60,14 +61,22 @@ namespace domino_cliente
 
                 byte[] buffer = socket.Receive(ref ipRemota);
                 if (!jugando)
-                    if(!solicitud)
+                {
+                    if (!solicitud)
                         AtenderMesa(ReadToMesa(buffer), ipRemota);
                     else if (!mensajeInicio)
                         AtenderInicioDeJuego(ReadToInicioDeJuego(buffer));
                     else if (!mensajeRonda)
                         AtenderInicioRonda(ReadToInicioRonda(buffer));
                     else
+                    {
+                        while (forma.fichas.Count != 7 && corriendo)
+                        {
+                            Thread.Sleep(1);
+                        }
                         AtenderMensajeGeneral(ReadToMensajeGeneral(buffer));
+                    }
+                }
                 else
                     AtenderMensajeGeneral(ReadToMensajeGeneral(buffer));
             }
