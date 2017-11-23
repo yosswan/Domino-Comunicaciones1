@@ -22,6 +22,7 @@ namespace domino_server
         public static int puerto = 3001;
         public static string multicastIP = "224.1.0.24";
         public static IPEndPoint multicastEndPoint = new IPEndPoint(IPAddress.Parse(multicastIP), puerto);
+        public static IPEndPoint broadcastEndPoint = new IPEndPoint(IPAddress.Parse("255.255.255.255"), puerto);
 
         public static int clientes = 0;
         public static int tiempo = 0;
@@ -29,7 +30,7 @@ namespace domino_server
         static NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
 
         public static Form1 forma;
-
+        public static Thread hiloInformacion = new Thread(new ThreadStart(sendInformacion));
         public static Thread hilo_escucha = new Thread(new ThreadStart(recibir_data));
 
         public static void recibir_data()
@@ -51,7 +52,8 @@ namespace domino_server
                 MessageBox.Show("ip local no determinada");
                 return;
             }
-            socket = new UdpClient(ipLocal);
+            //socket = new UdpClient(ipLocal);
+            socket = new UdpClient(puerto);
             byte[] buffer;
             IPEndPoint ipRemota = new IPEndPoint(IPAddress.Any, 0);
 
@@ -81,7 +83,7 @@ namespace domino_server
                 }
                 catch (SocketException s)
                 {
-                    MessageBox.Show("error al recibir data udp");
+                    //MessageBox.Show("error al recibir data udp");
                 }
                 
             } 
@@ -104,6 +106,16 @@ namespace domino_server
             catch
             {
                 
+            }
+        }
+
+        public static void sendInformacion()
+        {
+            while (!forma.juego.jugando && forma.juego.jugadores.Count < 4 && corriendo)
+            {
+                enviar_Mesa(broadcastEndPoint);
+                Thread.Sleep(5000);
+                //MessageBox.Show("hilo");
             }
         }
 

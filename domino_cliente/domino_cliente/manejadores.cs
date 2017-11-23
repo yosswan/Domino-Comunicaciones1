@@ -51,8 +51,8 @@ namespace domino_cliente
                 forma.juego.agregarJugadores(i.jugadores);
                 mensajeInicio = true;
             }
-            else
-                MessageBox.Show("mensaje erroneo");
+            /*else
+                MessageBox.Show("mensaje erroneo");*/
         }
 
         public static void AtenderDisponibilidad(Disponibilidad disponibilidad)

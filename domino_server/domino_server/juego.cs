@@ -407,6 +407,7 @@ namespace domino_server
 
         void Reiniciar()
         {
+            //validar desconexion
             foreach (var item in jugadores)
             {
                 item.fichas.Clear();

@@ -49,7 +49,17 @@ namespace domino_cliente
             }
             else
             {
-                listView1.Items.Add(linea);
+                bool ban = false;
+                foreach (var item in listView1.Items)
+                {
+                    if (item.ToString().Contains(linea))
+                    {
+                        ban = true;
+                        break;
+                    }
+                }
+                if(!ban)
+                    listView1.Items.Add(linea);
             }
         }
 
@@ -79,7 +89,7 @@ namespace domino_cliente
             {
                 if (i == 2)
                 {
-                    listView1.Visible = button1.Visible = button2.Visible = false;
+                    listView1.Visible = button2.Visible = false;
                     label13.Text = "Esperando Fichas...";
                     label2.Visible = label3.Visible = label4.Visible = label5.Visible = true;
                     label6.Visible = label7.Visible = label8.Visible = label9.Visible = true;
@@ -87,7 +97,7 @@ namespace domino_cliente
                 }
                 else
                 {
-                    listView1.Visible = button1.Visible = button2.Visible = true;
+                    listView1.Visible = button2.Visible = true;
                     label2.Visible = label3.Visible = label4.Visible = label5.Visible = false;
                     label6.Visible = label7.Visible = label8.Visible = label9.Visible = false;
                     label10.Visible = label11.Visible = label12.Visible = label13.Visible = false;

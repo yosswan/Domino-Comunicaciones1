@@ -88,6 +88,7 @@ namespace domino_server
         {
             server_udp.forma = this;
             server_udp.hilo_escucha.Start();
+            server_udp.hiloInformacion.Start();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

@@ -60,6 +60,7 @@ namespace domino_cliente
                 }
 
                 byte[] buffer = socket.Receive(ref ipRemota);
+                //MessageBox.Show("mensaje udp del server");
                 if (!jugando)
                 {
                     if (!solicitud)
