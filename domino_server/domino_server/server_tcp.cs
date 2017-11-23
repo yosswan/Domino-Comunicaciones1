@@ -52,6 +52,7 @@ namespace domino_server
                     cant_clientes++;
                     if (cant_clientes == 4)
                     {
+                        Thread.Sleep(100);
                         forma.juego.jugando = true;
                         forma.cambiar_label("Jugando...");
                         forma.juego.iniciar();

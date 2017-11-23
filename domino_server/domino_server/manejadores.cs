@@ -19,6 +19,7 @@ namespace domino_server
 
         public static void atenderJugadorUDP(IPEndPoint ip)
         {
+            //MessageBox.Show("broadcast");
             if (!forma.juego.jugando && forma.juego.jugadores.Count < 4)
                 enviar_Mesa(ip);
         }

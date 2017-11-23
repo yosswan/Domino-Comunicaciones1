@@ -12,6 +12,7 @@ namespace domino_cliente
         public List<Jugador> jugadores;
         public int cantidadJugadores;
         public int punta2, punta1, pos2, pos1;
+        public int mano;
         parametro_string_entero actualizarJugadores;
         public string nombre = "jugador";
         public string identificador;

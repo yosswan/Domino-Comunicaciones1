@@ -81,3 +81,12 @@ C:\Users\Yonny\Documents\UNET\Proyecto Domino\domino_cliente\domino_cliente\obj\
 C:\Users\Yonny\Documents\UNET\Proyecto Domino\domino_cliente\domino_cliente\obj\Debug\domino_cliente.Form1.resources
 C:\Users\Yonny\Documents\UNET\Proyecto Domino\domino_cliente\domino_cliente\obj\Debug\domino_cliente.Properties.Resources.resources
 C:\Users\Yonny\Documents\UNET\Proyecto Domino\domino_cliente\domino_cliente\obj\Debug\domino_cliente.csproj.GenerateResource.Cache
+C:\Users\yosswan.vecino\Documents\Proyecto Domino\domino_cliente\domino_cliente\bin\Debug\domino_cliente.exe.config
+C:\Users\yosswan.vecino\Documents\Proyecto Domino\domino_cliente\domino_cliente\obj\Debug\domino_cliente.exe
+C:\Users\yosswan.vecino\Documents\Proyecto Domino\domino_cliente\domino_cliente\obj\Debug\domino_cliente.pdb
+C:\Users\yosswan.vecino\Documents\Proyecto Domino\domino_cliente\domino_cliente\bin\Debug\domino_cliente.exe
+C:\Users\yosswan.vecino\Documents\Proyecto Domino\domino_cliente\domino_cliente\bin\Debug\domino_cliente.pdb
+C:\Users\yosswan.vecino\Documents\Proyecto Domino\domino_cliente\domino_cliente\obj\Debug\domino_cliente.csprojResolveAssemblyReference.cache
+C:\Users\yosswan.vecino\Documents\Proyecto Domino\domino_cliente\domino_cliente\obj\Debug\domino_cliente.Form1.resources
+C:\Users\yosswan.vecino\Documents\Proyecto Domino\domino_cliente\domino_cliente\obj\Debug\domino_cliente.Properties.Resources.resources
+C:\Users\yosswan.vecino\Documents\Proyecto Domino\domino_cliente\domino_cliente\obj\Debug\domino_cliente.csproj.GenerateResource.Cache

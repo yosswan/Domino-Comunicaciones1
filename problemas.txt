@@ -1,6 +1,8 @@
 sincronizar recepcion de mensajes tcp y udp //hecho
 ip no coincide // no ha vuelto a ocurrir
 cliente que no saca piensa que es la primera jugada
+agregar al juego ficha que juego
+error en server udp: Se ha forzado la interrupción de una conexión existente por el host remoto
 
 Modificaciones para pruebas:
 - server envia multicast a puertos 3002 y 3003

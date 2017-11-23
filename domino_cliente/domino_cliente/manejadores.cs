@@ -92,10 +92,37 @@ namespace domino_cliente
                     {
                         GenerarJugada(mensaje, true);
                     }
+                    else
+                    {
+                        for (int i = 0; i < forma.juego.jugadores.Count; i++)
+                        {
+                            if (forma.juego.jugadores[i].identificador == mensaje.identificador)
+                                forma.juego.mano = i;
+                        }
+                    }
                 }
                 else
                 {
-                    forma.juego.agregarFicha(mensaje.evento_pasado.ficha, mensaje.evento_pasado.punta, mensaje.evento_pasado.jugador);
+                    if (mensaje.evento_pasado.tipo == 0)
+                        forma.juego.agregarFicha(mensaje.evento_pasado.ficha, mensaje.evento_pasado.punta, mensaje.evento_pasado.jugador);
+                    else
+                    {
+                        for (int i = 0; i < forma.juego.jugadores.Count; i++)
+                        {
+                            if (forma.juego.jugadores[i].identificador == mensaje.evento_pasado.jugador)
+                            {
+                                if (i == forma.juego.mano)
+                                    if (forma.juego.mano < forma.juego.jugadores.Count - 1)
+                                    {
+                                        forma.juego.mano++;
+                                    }
+                                    else
+                                        forma.juego.mano = 0;
+                                forma.juego.jugadores.RemoveAt(i);
+                                break;
+                            }
+                        }
+                    }
                     if (mensaje.jugador == forma.juego.identificador)
                     {
                         GenerarJugada(mensaje, false);

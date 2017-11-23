@@ -9,11 +9,17 @@ namespace domino_cliente
     public class Jugador
     {
         List<ValorFicha> fichas = new List<ValorFicha>();
+        public List<int> pases = new List<int>();
         string nombre;
         public string identificador;
         int puntuacion;
         int pos;
         public parametro_string_entero modificarLabel;
+
+        public void agregarPase(int i)
+        {
+            pases.Add(i);
+        }
 
         public Jugador(string nombre, string identificador, int pos, parametro_string_entero delegado)
         {

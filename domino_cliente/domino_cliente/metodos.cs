@@ -16,8 +16,36 @@ namespace domino_cliente
     {
         public static void GenerarJugada(MensajeGeneral mensaje, bool primeraJugada)
         {
+            /*forma.juego: accede al objeto juego
+             * juego.fichas: fichas del juego en la mesa
+             * juego.pos1(inicia en 0 y se mueve hacia alante) y juego.pos2(inicia en 27 hacia atras): indican las posiciones en el vector fichas de las puntas
+             * juego.punta1 y juego.punta2: indican los valores de las puntas del juego
+             * juego.jugadores[x].fichas: fichas jugadas por el jugador x
+             * enviar_Jugada(f.getToken(), bool): envia ficha por la punta: 1(true), 2(false)
+             * forma.fichas: fichas del jugador
+             * mensaje.punta1 y mensaje.punta2 accede a los valores de las puntas enviadas por el servidor
+             * forma.fichas.RemoveAt(i): elimina la ficha i de la coleccion
+             * enviar_Jugada(new Token(), false): indica al servidor que el jugador pasa
+             * juego.jugadores[x].pases: tiene los valores con los que ha pasado el jugador x
+             * juego.mano: posicion del jugador que tiene la mano
+             */
+
+            
+
             if (!primeraJugada)
             {
+                if (mensaje.evento_pasado.tipo == 2)
+                {
+                    foreach (var i in forma.juego.jugadores)
+                    {
+                        if (i.identificador == mensaje.evento_pasado.jugador)
+                        {
+                            i.agregarPase(mensaje.evento_pasado.punta ? forma.juego.punta1 : forma.juego.punta2);
+                            break;
+                        }
+                    }
+                }
+
                 int n = -1;
                 foreach (Ficha f in forma.fichas)
                 {

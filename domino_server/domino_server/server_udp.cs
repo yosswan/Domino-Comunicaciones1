@@ -68,6 +68,10 @@ namespace domino_server
                 socket.Send(buffer, buffer.Length, destino);
                 destino.Port = 3003;
                 socket.Send(buffer, buffer.Length, destino);
+                destino.Port = 3004;
+                socket.Send(buffer, buffer.Length, destino);
+                destino.Port = 3005;
+                socket.Send(buffer, buffer.Length, destino);
             }
             catch
             {

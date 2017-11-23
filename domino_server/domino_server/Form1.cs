@@ -93,6 +93,7 @@ namespace domino_server
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             server_udp.corriendo = false;
+            server_udp.socket.Close();
             //server_udp.socket.DropMulticastGroup(server_udp.multicastEndPoint.Address);
         }
 
