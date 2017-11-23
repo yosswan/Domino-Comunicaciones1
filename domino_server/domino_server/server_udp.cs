@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Json;
 using System.Text;
@@ -15,7 +16,7 @@ namespace domino_server
     partial class server_udp
     {
         public static UdpClient socket;
-        public static IPEndPoint enlace;
+        public static IPEndPoint ipLocal;
         public static bool corriendo = true;
 
         public static int puerto = 3001;
@@ -24,7 +25,8 @@ namespace domino_server
 
         public static int clientes = 0;
         public static int tiempo = 0;
-        
+
+        static NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
 
         public static Form1 forma;
 
@@ -32,7 +34,24 @@ namespace domino_server
 
         public static void recibir_data()
         {
-            socket = new UdpClient(puerto);
+            //sacar ip de la interfaz
+            foreach (NetworkInterface adapter in nics)
+            {
+                if (adapter.Name == "Ethernet")
+                {
+                    UnicastIPAddressInformationCollection UnicastIPInfoCol = adapter.GetIPProperties().UnicastAddresses;
+                    if (UnicastIPInfoCol.Count > 1)
+                    {
+                        ipLocal = new IPEndPoint(UnicastIPInfoCol[1].Address, puerto);
+                    }
+                }
+            }
+            if (ipLocal == null)
+            {
+                MessageBox.Show("ip local no determinada");
+                return;
+            }
+            socket = new UdpClient(ipLocal);
             byte[] buffer;
             IPEndPoint ipRemota = new IPEndPoint(IPAddress.Any, 0);
 
@@ -44,19 +63,27 @@ namespace domino_server
                     Thread.Sleep(100);
                     continue; 
                 }
-                
-                buffer = socket.Receive(ref ipRemota);
-                MensajeJugador obj = ReadToJugador(buffer);
-                string datos = obj.identificador;
 
-                if (datos != "DOMINOCOMUNICACIONESI")
-                    continue;
-
-                if (!forma.juego.jugando)
+                try
                 {
-                    enviar_Mesa(ipRemota);
+                    buffer = socket.Receive(ref ipRemota);
+                    MensajeJugador obj = ReadToJugador(buffer);
+                    string datos = obj.identificador;
 
+                    if (datos != "DOMINOCOMUNICACIONESI")
+                        continue;
+                    //MessageBox.Show("lei");
+                    if (!forma.juego.jugando)
+                    {
+                        enviar_Mesa(ipRemota);
+
+                    }
                 }
+                catch (SocketException s)
+                {
+                    MessageBox.Show("error al recibir data udp");
+                }
+                
             } 
         }
 
@@ -64,18 +91,19 @@ namespace domino_server
         {
             try
             {
+                /*MessageBox.Show("voy a enviar");
                 destino.Port = 3002;
-                socket.Send(buffer, buffer.Length, destino);
+                socket.Send(buffer, buffer.Length, destino);*/
                 destino.Port = 3003;
-                socket.Send(buffer, buffer.Length, destino);
+                socket.Send(buffer, buffer.Length, destino).ToString();
                 destino.Port = 3004;
                 socket.Send(buffer, buffer.Length, destino);
-                destino.Port = 3005;
-                socket.Send(buffer, buffer.Length, destino);
+                /*destino.Port = 3005;
+                socket.Send(buffer, buffer.Length, destino);*/
             }
             catch
             {
-
+                
             }
         }
 
@@ -91,6 +119,7 @@ namespace domino_server
 
         public static void enviar_Fichas(Ficha[] fichas, int pos)
         {
+            MessageBox.Show("fichas enviadas a " + pos);
             server_tcp.enviar_data(ObjectToByte(new Fichas(fichas)), pos);
         }
 

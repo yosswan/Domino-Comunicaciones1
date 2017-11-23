@@ -44,7 +44,7 @@ namespace domino_cliente
 
         public string label()
         {
-            return nombre + ": " + puntuacion + " puntos";
+            return identificador + ": " + puntuacion + " puntos";
         }
 
         public string getNombre()

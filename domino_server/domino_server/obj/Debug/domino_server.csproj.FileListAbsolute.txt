@@ -76,3 +76,9 @@ C:\Users\yosswan.vecino\Documents\Proyecto Domino\domino_server\domino_server\ob
 D:\pendrive\documentos\UNET\comunicaciones\Proyecto Domino\domino_server\domino_server\bin\Debug\domino_server.exe.config
 D:\pendrive\documentos\UNET\comunicaciones\Proyecto Domino\domino_server\domino_server\obj\Debug\domino_server.exe
 D:\pendrive\documentos\UNET\comunicaciones\Proyecto Domino\domino_server\domino_server\obj\Debug\domino_server.pdb
+D:\pendrive\documentos\UNET\comunicaciones\Proyecto Domino\domino_server\domino_server\bin\Debug\domino_server.exe
+D:\pendrive\documentos\UNET\comunicaciones\Proyecto Domino\domino_server\domino_server\bin\Debug\domino_server.pdb
+D:\pendrive\documentos\UNET\comunicaciones\Proyecto Domino\domino_server\domino_server\obj\Debug\domino_server.csprojResolveAssemblyReference.cache
+D:\pendrive\documentos\UNET\comunicaciones\Proyecto Domino\domino_server\domino_server\obj\Debug\domino_server.Form1.resources
+D:\pendrive\documentos\UNET\comunicaciones\Proyecto Domino\domino_server\domino_server\obj\Debug\domino_server.Properties.Resources.resources
+D:\pendrive\documentos\UNET\comunicaciones\Proyecto Domino\domino_server\domino_server\obj\Debug\domino_server.csproj.GenerateResource.Cache

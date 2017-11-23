@@ -194,6 +194,11 @@ namespace domino_cliente
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             cliente_udp.corriendo = cliente_tcp.corriendo = false;
+            try
+            {
+                cliente_udp.socket.Close();
+            }
+            catch { }
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
