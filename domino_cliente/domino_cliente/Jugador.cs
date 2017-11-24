@@ -14,6 +14,7 @@ namespace domino_cliente
         public string identificador;
         int puntuacion;
         int pos;
+        public bool yo = false;
         public parametro_string_entero modificarLabel;
 
         public void agregarPase(int i)
@@ -28,7 +29,7 @@ namespace domino_cliente
             this.identificador = identificador;
             this.pos = pos;
             modificarLabel = delegado;
-            modificarLabel(label(), pos);
+            //modificarLabel(label(), pos);
         }
 
         public void agregarFicha(ValorFicha f)
@@ -44,7 +45,10 @@ namespace domino_cliente
 
         public string label()
         {
-            return identificador + ": " + puntuacion + " puntos";
+            if(yo)
+                return "yo: " + identificador + ": " + puntuacion;
+            else
+                return identificador + ": " + puntuacion;
         }
 
         public string getNombre()

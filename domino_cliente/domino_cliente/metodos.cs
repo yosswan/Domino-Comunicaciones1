@@ -53,6 +53,7 @@ namespace domino_cliente
                 }
                 if (n != -1)
                 {
+                    BorrarFicha(n);
                     forma.fichas.RemoveAt(n);
                 }
                 else
@@ -82,14 +83,25 @@ namespace domino_cliente
                 if (iDoble > -1)
                 {
                     enviar_Jugada(forma.fichas[iDoble].getToken(), true);
+                    BorrarFicha(iDoble);
                     forma.fichas.RemoveAt(iDoble);
                 }
                 else
                 {
                     enviar_Jugada(forma.fichas[iFicha].getToken(), true);
+                    BorrarFicha(iFicha);
                     forma.fichas.RemoveAt(iFicha);
                 }
             }
+        }
+
+        static void BorrarFicha(int i)
+        {
+            for (int j = i; j < forma.fichas.Count - 1; j++)
+            {
+                forma.ModificarFicha(forma.fichas[i + 1], i);
+            }
+            forma.ModificarFicha(null, i);
         }
 
         public static void Reiniciar()

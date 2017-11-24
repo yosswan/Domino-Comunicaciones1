@@ -91,9 +91,7 @@ namespace domino_cliente
                 {
                     listView1.Visible = button2.Visible = false;
                     label13.Text = "Esperando Fichas...";
-                    label2.Visible = label3.Visible = label4.Visible = label5.Visible = true;
-                    label6.Visible = label7.Visible = label8.Visible = label9.Visible = true;
-                    label10.Visible = label11.Visible = label12.Visible = label13.Visible = true;
+                    label13.Visible = true;
                 }
                 else
                 {
@@ -120,25 +118,67 @@ namespace domino_cliente
                 switch (i)
                 {
                     case 0:
-                        label2.Text = ficha.entero_uno + " | " + ficha.entero_dos;
+                        if (ficha != null)
+                        {
+                            label2.Visible = true;
+                            label2.Text = ficha.entero_uno + " | " + ficha.entero_dos;
+                        }
+                        else
+                            label2.Visible = false;
                         break;
                     case 1:
-                        label3.Text = ficha.entero_uno + " | " + ficha.entero_dos;
+                        if (ficha != null)
+                        {
+                            label3.Visible = true;
+                            label3.Text = ficha.entero_uno + " | " + ficha.entero_dos;
+                        }
+                        else
+                            label3.Visible = false;
                         break;
                     case 2:
-                        label4.Text = ficha.entero_uno + " | " + ficha.entero_dos;
+                        if (ficha != null)
+                        {
+                            label4.Visible = true;
+                            label4.Text = ficha.entero_uno + " | " + ficha.entero_dos;
+                        }
+                        else
+                            label4.Visible = false;
                         break;
                     case 3:
-                        label5.Text = ficha.entero_uno + " | " + ficha.entero_dos;
+                        if (ficha != null)
+                        {
+                            label5.Visible = true;
+                            label5.Text = ficha.entero_uno + " | " + ficha.entero_dos;
+                        }
+                        else
+                            label5.Visible = false;
                         break;
                     case 4:
-                        label6.Text = ficha.entero_uno + " | " + ficha.entero_dos;
+                        if (ficha != null)
+                        {
+                            label6.Visible = true;
+                            label6.Text = ficha.entero_uno + " | " + ficha.entero_dos;
+                        }
+                        else
+                            label6.Visible = false;
                         break;
                     case 5:
-                        label7.Text = ficha.entero_uno + " | " + ficha.entero_dos;
+                        if (ficha != null)
+                        {
+                            label7.Visible = true;
+                            label7.Text = ficha.entero_uno + " | " + ficha.entero_dos;
+                        }
+                        else
+                            label7.Visible = false;
                         break;
                     case 6:
-                        label8.Text = ficha.entero_uno + " | " + ficha.entero_dos;
+                        if (ficha != null)
+                        {
+                            label8.Visible = true;
+                            label8.Text = ficha.entero_uno + " | " + ficha.entero_dos;
+                        }
+                        else
+                            label8.Visible = false;
                         break;
                 }
             }
@@ -156,16 +196,20 @@ namespace domino_cliente
             {
                 switch (i)
                 {
-                    case 1:
+                    case 0:
+                        label9.Visible = true;
                         label9.Text = linea;
                         break;
-                    case 2:
+                    case 1:
+                        label10.Visible = true;
                         label10.Text = linea;
                         break;
-                    case 3:
+                    case 2:
+                        label11.Visible = true;
                         label11.Text = linea;
                         break;
-                    case 4:
+                    case 3:
+                        label12.Visible = true;
                         label12.Text = linea;
                         break;
                 }

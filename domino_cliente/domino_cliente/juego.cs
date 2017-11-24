@@ -81,13 +81,17 @@ namespace domino_cliente
 
         void agregarJugador(DatosJugador d)
         {
+            jugadores.Add(new Jugador(d.nombre, d.identificador, cantidadJugadores, actualizarJugadores));
+            cantidadJugadores++;
             if (d.nombre == nombre)
+            {
                 identificador = d.identificador;
+                forma.ModificarJugador("yo: " + jugadores[cantidadJugadores - 1].label(), jugadores.Count - 1);
+                jugadores[jugadores.Count - 1].yo = true;
+            }
             else
             {
-                jugadores.Add(new Jugador(d.nombre, d.identificador, cantidadJugadores, actualizarJugadores));
-                forma.ModificarJugador(jugadores[cantidadJugadores].label(), cantidadJugadores);
-                cantidadJugadores++;
+                forma.ModificarJugador(jugadores[cantidadJugadores - 1].label(), jugadores.Count - 1);
             }
         }
 

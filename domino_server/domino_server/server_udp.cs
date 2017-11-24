@@ -131,7 +131,7 @@ namespace domino_server
 
         public static void enviar_Fichas(Ficha[] fichas, int pos)
         {
-            MessageBox.Show("fichas enviadas a " + pos);
+            //MessageBox.Show("fichas enviadas a " + pos);
             server_tcp.enviar_data(ObjectToByte(new Fichas(fichas)), pos);
         }
 
