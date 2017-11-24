@@ -136,6 +136,21 @@ namespace domino_cliente
             entero_uno = entero_dos = -1;
         }
 
+        public Ficha(ValorFicha v, bool inv)
+        {
+            token = "-1";
+            if (inv)
+            {
+                entero_uno = v.entero_dos;
+                entero_dos = v.entero_uno;
+            }
+            else
+            {
+                entero_uno = v.entero_uno;
+                entero_dos = v.entero_dos;
+            }
+        }
+
         public Ficha(string token, int uno, int dos)
         {
             this.token = token;

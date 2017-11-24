@@ -407,6 +407,7 @@ namespace domino_server
 
         void Reiniciar()
         {
+            MessageBox.Show("Nueva Ronda");
             //validar desconexion
             foreach (var item in jugadores)
             {
@@ -424,11 +425,15 @@ namespace domino_server
             inicializarJuego();
             primeraJugada = true;
             ronda++;
-            server_udp.enviar_InicioRonda();
-            forma.agregar_linea("Comienzo de ronda " + ronda);
-            repartirFichas();
-            server_udp.enviar_MensajeDeJuego(jugadores[mano_inicial].identificador, punta1, punta2, evento_pasado);
-            forma.agregar_linea("El turno de saque es de: " + jugadores[mano_inicial].identificador);
+            try
+            {
+                server_udp.enviar_InicioRonda();
+                forma.agregar_linea("Comienzo de ronda " + ronda);
+                repartirFichas();
+                server_udp.enviar_MensajeDeJuego(jugadores[mano_inicial].identificador, punta1, punta2, evento_pasado);
+                forma.agregar_linea("El turno de saque es de: " + jugadores[mano_inicial].identificador);
+            }
+            catch { }
         }
 
         void comprobarFinal(string motivo, int c)

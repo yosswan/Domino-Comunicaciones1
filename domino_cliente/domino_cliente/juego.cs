@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace domino_cliente
 {
@@ -106,31 +107,46 @@ namespace domino_cliente
                         j.agregarFicha(f);
                     }
                 }
-
                 if (punta)
                 {
+                    bool orden = true;
                     if (f.entero_uno == punta1)
                     {
                         punta1 = f.entero_dos;
+                        orden = false;
                     }
                     else if (f.entero_dos == punta1)
                     {
                         punta1 = f.entero_uno;
                     }
+                    else
+                    {
+                        punta1 = f.entero_uno;
+                        punta2 = f.entero_dos;
+                    }
                     fichas[pos1] = f;
+                    forma.AgregarFichaMesa(new Ficha(f, !orden), pos1);
                     pos1--;
                 }
                 else
                 {
+                    bool orden = true;
                     if (f.entero_uno == punta2)
                     {
                         punta2 = f.entero_dos;
                     }
                     else if (f.entero_dos == punta2)
                     {
+                        orden = false;
                         punta2 = f.entero_uno;
                     }
+                    else
+                    {
+                        punta1 = f.entero_uno;
+                        punta2 = f.entero_dos;
+                    }
                     fichas[pos2] = f;
+                    forma.AgregarFichaMesa(new Ficha(f, !orden), pos2);
                     pos2++;
                 }
             }

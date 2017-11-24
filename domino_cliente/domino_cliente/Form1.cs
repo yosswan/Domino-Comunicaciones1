@@ -37,6 +37,40 @@ namespace domino_cliente
             fichas = new List<Ficha>();
             listView1.MultiSelect = false;
             juego = new Juego(this.ModificarJugador, this);
+            mesa = new Label[28];
+            inicializar_vector_mesa();
+        }
+
+        void inicializar_vector_mesa()
+        {
+            mesa[0] = label25;
+            mesa[1] = label24;
+            mesa[2] = label23;
+            mesa[3] = label22;
+            mesa[4] = label21;
+            mesa[5] = label20;
+            mesa[6] = label40;
+            mesa[7] = label41;
+            mesa[8] = label26;
+            mesa[9] = label27;
+            mesa[10] = label28;
+            mesa[11] = label29;
+            mesa[12] = label30;
+            mesa[13] = label31;
+            mesa[14] = label32;
+            mesa[15] = label33;
+            mesa[16] = label34;
+            mesa[17] = label35;
+            mesa[18] = label36;
+            mesa[19] = label37;
+            mesa[20] = label39;
+            mesa[21] = label38;
+            mesa[22] = label14;
+            mesa[23] = label15;
+            mesa[24] = label16;
+            mesa[25] = label19;
+            mesa[26] = label18;
+            mesa[27] = label17;
         }
 
         public void agregar_item(string linea)
@@ -74,6 +108,10 @@ namespace domino_cliente
             else
             {
                 label13.Text = linea;
+                foreach (var item in mesa)
+                {
+                    item.Visible = false;
+                }
             }
         }
 
@@ -92,6 +130,7 @@ namespace domino_cliente
                     listView1.Visible = button2.Visible = false;
                     label13.Text = "Esperando Fichas...";
                     label13.Visible = true;
+                    panel1.Visible = true;
                 }
                 else
                 {
@@ -101,7 +140,34 @@ namespace domino_cliente
                     label10.Visible = label11.Visible = label12.Visible = label13.Visible = false;
                     textBox1.Visible = true;
                     button4.Visible = true;
+                    panel1.Visible = false;
+                    foreach (var item in mesa)
+                    {
+                        item.Visible = false;
+                    }
                 }
+            }
+        }
+
+        public void AgregarFichaMesa(Ficha ficha, int i)
+        {
+            if (this.InvokeRequired)
+            {
+                parametro_ficha_entero delegado = new parametro_ficha_entero(AgregarFichaMesa);
+                object[] parametros = new object[] { ficha, i };
+                this.Invoke(delegado, parametros);
+            }
+            else
+            {
+                if(i < 6 || i > 21)
+                    mesa[i].Text = "| " + ficha.entero_uno + " | " + ficha.entero_dos + " |";
+                else if(i > 7 && i < 20)
+                    mesa[i].Text = "| " + ficha.entero_dos + " | " + ficha.entero_uno + " |";
+                else if(i == 6 || i == 7)
+                    mesa[i].Text = "--\n" + ficha.entero_uno + "\n--\n" + ficha.entero_dos + "\n--";
+                else
+                    mesa[i].Text = "--\n" + ficha.entero_dos + "\n--\n" + ficha.entero_uno + "\n--";
+                mesa[i].Visible = true;
             }
         }
 
@@ -111,7 +177,11 @@ namespace domino_cliente
             {
                 parametro_ficha_entero delegado = new parametro_ficha_entero(ModificarFicha);
                 object[] parametros = new object[] { ficha, i };
-                this.Invoke(delegado, parametros);
+                try
+                {
+                    this.Invoke(delegado, parametros);
+                }
+                catch { }
             }
             else
             {
@@ -280,6 +350,8 @@ namespace domino_cliente
             else
             {
                 button3.Visible = v;
+                if (v)
+                    panel1.Visible = !v;
             }
         }
 
@@ -301,6 +373,7 @@ namespace domino_cliente
         public List<IPEndPoint> mesas;
         public List<Ficha> fichas;
         public Juego juego;
+        Label[] mesa;
 
         private void button3_Click(object sender, EventArgs e)
         {
